@@ -11,6 +11,12 @@
   body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.45 -apple-system, "Helvetica Neue", Arial, sans-serif; display: flex; flex-direction: column; }
   .bar { background: var(--bar); border-bottom: 1px solid var(--line); padding: 10px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .bar .title { font-weight: 600; margin-right: 4px; white-space: nowrap; }
+  .bar .back { color: var(--acc); text-decoration: none; font-weight: 600; white-space: nowrap; padding: 5px 10px; border: 1px solid var(--acc); border-radius: 6px; }
+  .bar .back:hover { background: var(--acc); color: #1C1C1E; }
+  .tabs button.other { border-style: dashed; color: var(--dim); }
+  .tabs button.other[aria-expanded="true"] { color: var(--fg); border-style: solid; }
+  .tabs button.hidden-tab { display: none; }
+  .tabs.show-all button.hidden-tab { display: inline-block; }
   .tabs { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
   .tabs button { background: transparent; border: 1px solid #45454C; color: var(--fg); padding: 6px 12px; border-radius: 999px; cursor: pointer; font: inherit; }
   .tabs button:hover { border-color: var(--acc); }
@@ -61,6 +67,7 @@
 </head>
 <body>
   <div class="bar">
+    <a class="back" href="../index.html">← Back to main site</a>
     <span class="title">Home page · design choices</span>
     <div class="tabs" role="tablist" id="tabs"></div>
     <div class="right">
@@ -83,7 +90,7 @@
       <div><h4>Vibe</h4><p id="bVibe"></p></div>
       <div><h4>Rationale</h4><p id="bWhy"></p></div>
       <div><h4>Who it is for</h4><p id="bWho"></p></div>
-      <div><h4>Watch out</h4><p id="bRisk"></p><p style="margin-top:8px;color:var(--dim)"><kbd>←</kbd> <kbd>→</kbd> or <kbd>1</kbd>–<kbd>0</kbd> to switch · <kbd>N</kbd> toggles notes</p></div>
+      <div><h4>Watch out</h4><p id="bRisk"></p><p style="margin-top:8px;color:var(--dim)"><kbd>←</kbd> <kbd>→</kbd> or <kbd>1</kbd>–<kbd>9</kbd> to switch · <kbd>N</kbd> toggles notes</p></div>
     </div>
   </div>
 
@@ -93,7 +100,7 @@
       <div class="inner">
         <button class="close" id="thinkClose">Close</button>
         <h2>Who this site is for, and what the best sites of its kind do</h2>
-        <p style="color:var(--dim)">The thinking behind round two (designs 7 to 10), and a recommendation.</p>
+        <p style="color:var(--dim)">The thinking behind round two (designs 7 to 10) and round three (11 to 13), and a recommendation.</p>
 
         <h3>The audience, in order</h3>
         <ul>
@@ -115,10 +122,26 @@
         <h3>How the two rounds differ</h3>
         <p>Round one (1 to 6) asks "what period or mood should the site wear". Round two (7 to 10) asks "what kind of site is this", and borrows the conventions those kinds of sites have already proven with this audience. Round-two designs use the archive's own metadata and the twelve recordings as content, which is the site's real advantage over any other book page.</p>
 
+        <h3>Round three: where readers actually find books now</h3>
+        <p>Rounds one and two design for people who arrive at the site. Round three designs for the channels that send them. Three are worth a home page of their own; the rest are covered by existing designs or belong on interior pages.</p>
+        <table>
+          <tr><th>Channel</th><th>Why it matters for this book</th><th>Design</th></tr>
+          <tr><td>BookTok, Bookstagram, Reels</td><td>The biggest driver of backlist and debut sales since 2020. This book fits two of its strongest corners: dark academia and #BlackBookTok. It needs a phone-first page and things to post.</td><td>11, BookTok</td></tr>
+          <tr><td>Newsletter and Substack</td><td>The most reliable way to build an audience before a publication date, and the number a publisher asks for. The archive gives the authors a year of material.</td><td>12, Dispatch</td></tr>
+          <tr><td>Music: Spotify, Bandcamp, public-radio music shows</td><td>Twelve public-domain recordings are a rare asset. A playlist page can be shared on its own and reaches people who would never click a book link.</td><td>13, Playlist</td></tr>
+          <tr><td>Podcasts and audiobook</td><td>Long-form interviews suit a found-in-a-box story. Served by 12 (a dispatch per episode) and a press kit on 9. A trailer or read-aloud prologue should live on every version.</td><td>12, 9</td></tr>
+          <tr><td>Goodreads, Amazon, Bookshop.org</td><td>Where buyers check before buying. Handled by the buy row and praise on 9; the site's job is to link out, not compete.</td><td>9</td></tr>
+          <tr><td>Schools, Black History Month, libraries</td><td>Teachers and librarians programme around February and around music history. A teaching guide and object labels matter more than a design. Belongs on an interior page of 8.</td><td>8</td></tr>
+          <tr><td>Wikipedia and search</td><td>Both Abbie Mitchell and Will Marion Cook have thin Wikipedia pages. Captioned, sourced images and dated recordings on the site will be cited from there. Any of 7, 8 or 13 serves this.</td><td>7, 8, 13</td></tr>
+          <tr><td>Events, festivals, theatre</td><td>Readings with a live performance of the songs are the natural event. Served by events on 9 and the recordings on 13.</td><td>9, 13</td></tr>
+        </table>
+        <p>Not worth a design: a crowdfunding page, unless the book is self-published; a general social feed embed, which dates fast and is blocked by many browsers; a chatbot or "ask the archive" feature, which the audience will not trust on a family history.</p>
+
         <h3>Recommendation</h3>
         <div class="rec">
           <p><b>Build on 7, Overlooked, with the buy row from 9 and the object labels and Listen section from 8.</b> The editorial form fits the first two audiences best, treats the photographs with the respect the family will want, and reads as serious and modern rather than as a template. The book-page conventions from 9 cover the trade and conversion. The object labels and recordings from 8 are what make this site more than a brochure.</p>
-          <p style="margin:0">If the authors want more warmth and theatre, 10 (Documentary) is the strongest emotional version and could be the home page over an editorial interior. Of round one, 3 (The Box) is the most distinctive idea and could survive as the design of the Box page alone.</p>
+          <p>If the authors want more warmth and theatre, 10 (Documentary) is the strongest emotional version and could be the home page over an editorial interior. Of round one, 3 (The Box) is the most distinctive idea and could survive as the design of the Box page alone.</p>
+          <p style="margin:0">From round three, take the working playlist and player bar from 13 as the Listen page, the dispatch feed from 12 as the News page and the newsletter engine, and the creator kit and quote cards from 11 as a page of their own. None of the three should be the home page for the core reader, but each is the right landing page for its channel, and a site can have more than one front door.</p>
         </div>
       </div>
     </div>
@@ -176,6 +199,21 @@
       why: 'Modelled on documentary companion sites. A full-screen hero on the 1905 In Dahomey tour photograph with a slow Ken Burns move, a sepia-to-parchment palette, Spectral and Karla. Five dated chapters along a spine, a phonograph player for the 1900 Sousa recording, a single large quote.',
       who: 'General readers arriving cold. Event audiences. The most emotional first impression of the ten.',
       risk: 'Motion and sepia can feel like a template if overused. Chapters must stay accurate to the book. Heavier page than the others.' },
+    { file: '11-booktok.html', name: 'BookTok', round: 3,
+      vibe: 'Dark academia, 1898. Phone-first, swipeable, built to be filmed.',
+      why: 'Made for TikTok, Reels and Bookstagram, where "dark academia" and #BlackBookTok are large and this story fits both: a violin prodigy, a Berlin conservatory, a fourteen-year-old on a theatre roof. EB Garamond and Manrope, candlelight gold on forest green. A 9:16 book-trailer frame, seven swipeable story cards, trope tags, comp titles, and a creator kit with quote cards and hashtags.',
+      who: 'Readers 18 to 35 who find books on TikTok and Instagram. Creators who need something to post. The audience the other twelve designs mostly miss.',
+      risk: 'The core BookTok genres are romance and fantasy, so this book reaches that audience through the historical-fiction and Black-BookTok corners, not the mainstream. The marriage at fifteen will be discussed there; the site should say what the book says rather than let creators find it. Needs a real trailer and real creator assets to work.' },
+    { file: '12-dispatch.html', name: 'Dispatch', round: 3,
+      vibe: 'A newsletter from the authors. One find from the box, most weeks, until the book is out.',
+      why: 'Modelled on Substack author pages and sites like The Marginalian. Lora and Figtree, white with one orange accent. The home page is a feed: a pinned origin post, then dispatches built from what the site already has, a recording, a sheet-music cover, a person, a date. A large subscribe box at the top and the book in the sidebar.',
+      who: 'The reader who wants to follow along before publication. Reviewers, booksellers, podcast producers and event bookers, who subscribe to things. The publisher, who will ask how big the list is.',
+      risk: 'A feed needs feeding. It only works if the authors will write something most weeks for a year. Without that cadence it reads as abandoned. The book itself is secondary on the page by design.' },
+    { file: '13-playlist.html', name: 'Playlist', round: 3,
+      vibe: 'A record with liner notes. Press play, then read.',
+      why: 'Modelled on Bandcamp, Smithsonian Folkways and streaming-app design. Syne, Hanken Grotesk and DM Mono, warm grey with one hot orange. All twelve recordings as a working playlist with a persistent player bar, track numbers, labels and real durations. The book is presented as the liner notes. Sheet-music covers as album art.',
+      who: 'Music people: jazz, ragtime and early-recording listeners, public-radio music shows, the Spotify-and-Bandcamp generation, teachers. Anyone for whom hearing Cook is the way in.',
+      risk: 'Leads with Will and the music, so Abbie and the love story are second on the page. The Little Wonder disc comes from a minstrel record and needs its note next to the play button. The player bar is a real feature to build and maintain.' },
   ];
   const tabs = document.getElementById('tabs');
   const frame = document.getElementById('frame');
@@ -185,19 +223,38 @@
   const think = document.getElementById('think');
   let current = 0;
 
+  // Shortlist chosen on September 5, 2026. The rest sit behind "Other".
+  const favorites = [1, 4, 5, 6, 7, 10];
+  const tabButtons = [];
   designs.forEach((d, i) => {
-    if (i > 0 && d.round !== designs[i - 1].round) { const s = document.createElement('span'); s.className = 'sep'; s.title = 'Round 2: audience and gold standard'; tabs.appendChild(s); }
     const b = document.createElement('button');
     b.setAttribute('role', 'tab');
-    b.innerHTML = `<b>${(i + 1) % 10}</b>${d.name}`;
+    b.innerHTML = `<b>${i + 1}</b>${d.name}`;
     b.addEventListener('click', () => show(i));
-    tabs.appendChild(b);
+    if (!favorites.includes(i + 1)) b.classList.add('hidden-tab');
+    tabButtons.push(b);
   });
+  favorites.forEach((n) => tabs.appendChild(tabButtons[n - 1]));
+  const other = document.createElement('button');
+  other.className = 'other';
+  other.textContent = `Other (${designs.length - favorites.length}) ▾`;
+  other.setAttribute('aria-expanded', 'false');
+  other.addEventListener('click', () => setOthers(!tabs.classList.contains('show-all')));
+  tabs.appendChild(other);
+  designs.forEach((d, i) => { if (!favorites.includes(i + 1)) tabs.appendChild(tabButtons[i]); });
+  function setOthers(on) {
+    tabs.classList.toggle('show-all', on);
+    other.setAttribute('aria-expanded', on);
+    other.textContent = on ? 'Other ▴' : `Other (${designs.length - favorites.length}) ▾`;
+    try { localStorage.setItem('dc-others', on ? 'open' : 'closed'); } catch (_) {}
+  }
+  try { if (localStorage.getItem('dc-others') === 'open') setOthers(true); } catch (_) {}
 
   function show(i) {
     current = (i + designs.length) % designs.length;
     const d = designs[current];
-    [...tabs.querySelectorAll('button')].forEach((b, j) => b.setAttribute('aria-selected', j === current));
+    tabButtons.forEach((b, j) => b.setAttribute('aria-selected', j === current));
+    if (!favorites.includes(current + 1) && !tabs.classList.contains('show-all')) setOthers(true);
     frame.src = d.file;
     open.href = d.file;
     document.getElementById('nNum').textContent = `${current + 1} of ${designs.length}`;
@@ -234,7 +291,7 @@
     else if (e.key === 'ArrowLeft') show(current - 1);
     else if (e.key === 'Escape') think.classList.remove('open');
     else if (e.key === 'n' || e.key === 'N') setNotes(note.classList.contains('collapsed'));
-    else if (/^[0-9]$/.test(e.key)) show(e.key === '0' ? 9 : Number(e.key) - 1);
+    else if (/^[1-9]$/.test(e.key)) show(Number(e.key) - 1);
   }
   document.addEventListener('keydown', onKey);
   frame.addEventListener('load', () => {

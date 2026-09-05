@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dispatch · The Diva and the Maestro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Figtree:wght@400;500;600;700&display=swap" />
+<style>
+  :root {
+    --white: #FFFFFF;
+    --off: #F6F5F2;
+    --ink: #1C1C1C;
+    --ink-2: #4B4B4B;
+    --grey: #7A7A7A;
+    --rule: #E6E4DF;
+    --accent: #D9531E;
+    --serif: "Lora", Georgia, serif;
+    --sans: "Figtree", "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--white); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.6; }
+  img { max-width: 100%; display: block; height: auto; }
+  a { color: var(--ink); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; margin: 0; line-height: 1.15; }
+
+  header { border-bottom: 1px solid var(--rule); }
+  header .row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+  .brand .mark { width: 34px; height: 34px; border-radius: 8px; background: var(--accent); color: #fff; display: grid; place-items: center; font-family: var(--serif); font-weight: 600; font-size: 16px; }
+  .brand b { font-family: var(--serif); font-weight: 600; font-size: 19px; }
+  .brand span { display: block; font-size: 12px; color: var(--grey); font-weight: 500; }
+  header nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px 18px; flex-wrap: wrap; align-items: center; }
+  header nav a { font-size: 14px; font-weight: 500; text-decoration: none; color: var(--ink-2); }
+  header nav a.sub { background: var(--accent); color: #fff; padding: 9px 16px; border-radius: 6px; font-weight: 600; }
+
+  .masthead { text-align: center; padding: clamp(36px, 6vw, 72px) 0 clamp(28px, 4vw, 44px); border-bottom: 1px solid var(--rule); background: var(--off); }
+  .masthead h1 { font-size: clamp(38px, 5.4vw, 64px); letter-spacing: -.01em; max-width: 18ch; margin: 0 auto; }
+  .masthead h1 em { font-style: italic; font-weight: 400; }
+  .masthead .sub { font-size: clamp(17px, 2vw, 21px); color: var(--ink-2); max-width: 54ch; margin: 16px auto 0; }
+  .masthead form { display: flex; gap: 8px; max-width: 460px; margin: 26px auto 10px; }
+  .masthead input { flex: 1; min-width: 0; padding: 14px 16px; border: 1px solid #CFCCC4; border-radius: 6px; font: inherit; font-size: 16px; }
+  .masthead button { padding: 14px 20px; border: 0; border-radius: 6px; background: var(--accent); color: #fff; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .masthead .fine { font-size: 13px; color: var(--grey); margin: 0; }
+  .masthead .fine b { color: var(--ink-2); font-weight: 600; }
+
+  .layout { display: grid; grid-template-columns: 1fr 300px; gap: clamp(32px, 6vw, 80px); padding: clamp(32px, 5vw, 56px) 0; }
+  .feed .label { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--grey); margin: 0 0 18px; }
+  .post { display: grid; grid-template-columns: 1fr 200px; gap: 24px; padding: 26px 0; border-top: 1px solid var(--rule); align-items: start; }
+  .post:first-of-type { border-top: 0; padding-top: 0; }
+  .post.pinned { background: var(--off); padding: 22px; border-radius: 10px; border: 0; margin-bottom: 8px; }
+  .post .k { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
+  .post .k span { color: var(--grey); font-weight: 500; letter-spacing: 0; text-transform: none; margin-left: 10px; }
+  .post h2 { font-size: clamp(22px, 2.6vw, 30px); margin-bottom: 8px; }
+  .post h2 a { text-decoration: none; }
+  .post h2 a:hover { color: var(--accent); }
+  .post p { margin: 0 0 10px; color: var(--ink-2); font-size: 16.5px; }
+  .post .meta { font-size: 13px; color: var(--grey); display: flex; gap: 14px; }
+  .post img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: top; border-radius: 6px; }
+  .post .audio { display: flex; align-items: center; gap: 12px; margin-top: 8px; font-size: 14px; }
+  .post .audio button { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--ink); background: #fff; cursor: pointer; font-size: 12px; }
+  .post audio { display: none; }
+  .more { display: inline-block; margin-top: 22px; font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--accent); }
+
+  aside .box { border: 1px solid var(--rule); border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+  aside h3 { font-size: 18px; margin-bottom: 8px; }
+  aside p { font-size: 14.5px; color: var(--ink-2); margin: 0 0 8px; }
+  aside .cover { aspect-ratio: 2 / 3; background: #2B2B2B; border-radius: 4px; position: relative; overflow: hidden; margin-bottom: 14px; box-shadow: 0 10px 24px -12px rgba(0,0,0,.5); }
+  aside .cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; filter: grayscale(1); opacity: .6; }
+  aside .cover span { position: absolute; left: 14px; right: 14px; top: 16px; color: #fff; font-family: var(--serif); font-size: 22px; line-height: 1.05; }
+  aside .cover small { position: absolute; left: 14px; bottom: 12px; color: #fff; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; opacity: .8; }
+  aside .btn { display: block; text-align: center; padding: 11px; border-radius: 6px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 600; font-size: 14px; }
+  aside .btn.o { background: transparent; color: var(--ink); border: 1px solid var(--ink); margin-top: 8px; }
+  aside ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  aside ul a { font-size: 14.5px; text-decoration: none; }
+  aside ul a:hover { color: var(--accent); }
+  aside .who { display: grid; gap: 10px; }
+  aside .who > div { display: grid; grid-template-columns: 40px 1fr; gap: 10px; align-items: center; }
+  aside .who i { width: 40px; height: 40px; border-radius: 50%; background: var(--off); border: 1px dashed #CFCCC4; }
+  aside .who b { display: block; font-size: 14px; }
+  aside .who span { font-size: 12.5px; color: var(--grey); }
+
+  footer { border-top: 1px solid var(--rule); padding: 32px 0; font-size: 13.5px; color: var(--grey); }
+  footer .row { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  footer a { color: var(--ink-2); text-decoration: none; margin-left: 16px; }
+
+  @media (max-width: 800px) {
+    .layout { grid-template-columns: 1fr; }
+    .post { grid-template-columns: 1fr; }
+    .post img { aspect-ratio: 16 / 9; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap row">
+      <a class="brand" href="#"><span class="mark">D</span><div><b>Dispatches from the Box</b><span>Notes on The Diva and the Maestro, from the authors</span></div></a>
+      <nav><ul><li><a href="#">The Book</a></li><li><a href="#">Archive</a></li><li><a href="#">Listen</a></li><li><a href="#">About</a></li><li><a class="sub" href="#">Subscribe</a></li></ul></nav>
+    </div>
+  </header>
+
+  <section class="masthead">
+    <div class="wrap">
+      <h1>We found our grandparents in a box. <em>We're opening it, one dispatch at a time.</em></h1>
+      <p class="sub">A newsletter from the authors of <em>The Diva and the Maestro</em>, the novel based on the true story of Abbie Mitchell and Will Marion Cook. A photograph, a recording, or a page from the box, most weeks, until the book comes out.</p>
+      <form onsubmit="return false"><input type="email" placeholder="Type your email" /><button>Subscribe</button></form>
+      <p class="fine">Free. <b>1,240 readers</b> · placeholder count · No spam, unsubscribe any time</p>
+    </div>
+  </section>
+
+  <div class="wrap layout">
+    <main class="feed">
+      <p class="label">Latest dispatches</p>
+
+      <article class="post pinned">
+        <div>
+          <p class="k">Pinned <span>Start here</span></p>
+          <h2><a href="#">It started with a cardboard box.</a></h2>
+          <p>After his father died, Jacques Cook found a large box in the house, stuffed with hundreds of pages of prose. The pages told the story of his grandparents: two Black artists, one generation out of slavery, who reached the heights of American music while Jim Crow tried to stop them at every turn. This is why there is a book, and why there is a newsletter.</p>
+          <div class="meta"><span>Jacques Cook</span><span>8 min read</span></div>
+        </div>
+        <img src="img/cook-house-138th-street.jpg" alt="" />
+      </article>
+
+      <article class="post">
+        <div>
+          <p class="k">Dispatch 14 <span>Recording</span></p>
+          <h2><a href="#">The closest thing we have to the sound of that summer.</a></h2>
+          <p>Sousa's Band recorded a Clorindy number in October 1900, two years after the show opened on the Casino roof. A seven-inch record, so it runs under a minute and a half. Here is what Abbie would have heard from the wings.</p>
+          <div class="audio"><button aria-label="Play" onclick="var a=this.parentNode.querySelector('audio');a.paused?(a.play(),this.textContent='❚❚'):(a.pause(),this.textContent='▶')">▶</button><span><b>Who Dat Say Chicken in Dis Crowd?</b> · Sousa's Band, 1900 · 1:28</span><audio src="../audio/who-dat-say-chicken-sousa-1900.mp3" preload="none"></audio></div>
+          <div class="meta" style="margin-top:10px"><span>Penny Daniels</span><span>4 min</span></div>
+        </div>
+        <img src="img/casino-theatre-roof-garden.jpg" alt="" />
+      </article>
+
+      <article class="post">
+        <div>
+          <p class="k">Dispatch 13 <span>From the box</span></p>
+          <h2><a href="#">"You have a glorious voice, little girl, plenty of fire, but you can't sing a damn thing!"</a></h2>
+          <p>The audition, July 12, 1898, as our grandmother told it and as the pages in the box recorded it. The first chapter of the book, in full, for subscribers.</p>
+          <div class="meta"><span>Jacques Cook</span><span>12 min read</span><span>Subscribers</span></div>
+        </div>
+        <img src="img/abbie-mitchell-portrait.jpg" alt="" />
+      </article>
+
+      <article class="post">
+        <div>
+          <p class="k">Dispatch 12 <span>Sheet music</span></p>
+          <h2><a href="#">A ten-cent record of the song he played at the audition.</a></h2>
+          <p>"Darktown Is Out To-night" survives on a five-and-a-half-inch Little Wonder disc from a minstrel medley, performer unnamed. It is the only recording of the song we have found, and it comes with a warning about where it comes from.</p>
+          <div class="meta"><span>Antoinette Cook Bush</span><span>6 min read</span></div>
+        </div>
+        <img src="img/darktown-is-out-tonight-cover-1898.jpg" alt="" />
+      </article>
+
+      <article class="post">
+        <div>
+          <p class="k">Dispatch 11 <span>People</span></p>
+          <h2><a href="#">Who was Sissieretta Jones, and why does she matter to Abbie's story?</a></h2>
+          <p>"The Black Patti" was the most famous Black singer in America when Abbie was a child. A short life of the woman whose career showed what was possible and what was not.</p>
+          <div class="meta"><span>Penny Daniels</span><span>7 min read</span></div>
+        </div>
+        <img src="img/sissieretta-jones-1905.jpg" alt="" />
+      </article>
+
+      <article class="post">
+        <div>
+          <p class="k">Dispatch 10 <span>1903</span></p>
+          <h2><a href="#">The night the cake walk went to Buckingham Palace.</a></h2>
+          <p>In Dahomey sailed to London and the company performed for the ninth birthday of the Prince of Wales's son. Abbie sang. She was nineteen. What we know, and what we had to imagine.</p>
+          <div class="meta"><span>Jacques Cook</span><span>9 min read</span></div>
+        </div>
+        <img src="img/in-dahomey-cakewalk-1903.jpg" alt="" />
+      </article>
+
+      <a class="more" href="#">All dispatches →</a>
+    </main>
+
+    <aside>
+      <div class="box">
+        <div class="cover"><img src="img/abbie-mitchell-portrait.jpg" alt="" /><span>The Diva and the Maestro</span><small>Cover placeholder</small></div>
+        <h3>The book</h3>
+        <p>The Life and Times of Abbie Mitchell and Will Marion Cook. A novel based on a true story. Publication date to be announced.</p>
+        <a class="btn" href="#">Pre-order</a><a class="btn o" href="#">Read the first page</a>
+      </div>
+      <div class="box">
+        <h3>The authors</h3>
+        <div class="who">
+          <div><i></i><div><b>Jacques Cook</b><span>Grandson. Found the box.</span></div></div>
+          <div><i></i><div><b>Antoinette Cook Bush</b><span>Great-granddaughter.</span></div></div>
+          <div><i></i><div><b>Penny Daniels</b><span>Writer and family friend.</span></div></div>
+        </div>
+      </div>
+      <div class="box">
+        <h3>Browse</h3>
+        <ul><li><a href="#">The archive: photographs, scores, places</a></li><li><a href="#">Twelve recordings, 1900 to 1919</a></li><li><a href="#">The timeline</a></li><li><a href="#">Cast of characters</a></li><li><a href="#">Events and readings</a></li></ul>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <div class="wrap row">
+      <span>© 2026 Jacques Cook, Antoinette Cook Bush, and Penny Daniels.</span>
+      <span><a href="#">Archive</a><a href="#">Privacy</a><a href="#">Contact</a><a href="#">RSS</a></span>
+    </div>
+  </footer>
+</body>
+</html>
