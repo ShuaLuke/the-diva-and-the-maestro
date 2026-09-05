@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import ArchiveTile from '../../components/ArchiveTile.astro';
 import Player from '../../components/Player.astro';
+import Film from '../../components/Film.astro';
 import { archive, sorted, kinds } from '../../data/archive';
 
 export function getStaticPaths() {
@@ -13,12 +14,16 @@ const { item } = Astro.props;
 const idx = sorted.findIndex((i) => i.slug === item.slug);
 const prev = sorted[(idx - 1 + sorted.length) % sorted.length];
 const next = sorted[(idx + 1) % sorted.length];
-const more = sorted.filter((i) => i.slug !== item.slug && (i.people.some((p) => item.people.includes(p)) || i.kind === item.kind)).slice(0, 4);
+const cakewalkish = /cake walk|in dahomey|clorindy/i.test(item.title + ' ' + item.description);
+const more = sorted
+  .filter((i) => i.slug !== item.slug && (i.people.some((p) => item.people.includes(p)) || i.kind === item.kind || (cakewalkish && i.kind === 'film')))
+  .sort((a, b) => Number(b.kind === 'film') - Number(a.kind === 'film'))
+  .slice(0, 4);
 ---
 <Layout title={item.title} description={item.description}>
   <div class="wrap item">
     <div class="media">
-      {item.image && <Image src={item.image} alt={item.title} width={1200} widths={[640, 1000, 1400]} sizes="(max-width: 900px) 92vw, 640px" loading="eager" />}
+      {item.video ? <Film item={item} /> : item.image && <Image src={item.image} alt={item.title} width={1200} widths={[640, 1000, 1400]} sizes="(max-width: 900px) 92vw, 640px" loading="eager" />}
       {item.audio && (
         <div class="record">
           <p class="eyebrow gilt">Recording · {item.date}</p>
@@ -28,7 +33,7 @@ const more = sorted.filter((i) => i.slug !== item.slug && (i.people.some((p) => 
       )}
       {item.story && (
         <details class="story">
-          <summary><span>How this recording fits the story</span><i aria-hidden="true"></i></summary>
+          <summary><span>How this {item.kind === 'film' ? 'film' : 'recording'} fits the story</span><i aria-hidden="true"></i></summary>
           <div class="story-body">
             {item.chapter && <p class="ch"><b>In the book:</b> {item.chapter}</p>}
             {item.story.map((para) => <p>{para}</p>)}

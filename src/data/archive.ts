@@ -22,8 +22,10 @@ import sso from '../assets/archive/southern-syncopated-orchestra-1920.jpg';
 import dunbar from '../assets/archive/paul-laurence-dunbar-1903.jpg';
 import burleigh from '../assets/archive/harry-burleigh-1917.jpg';
 import sissieretta from '../assets/archive/sissieretta-jones-1905.jpg';
+import cakeWalkFrame from '../assets/archive/cake-walk-biograph-1903-frame.jpg';
+import comedyCakeWalkFrame from '../assets/archive/comedy-cake-walk-biograph-1903-frame.jpg';
 
-export type Kind = 'photograph' | 'score' | 'program' | 'place' | 'recording';
+export type Kind = 'photograph' | 'score' | 'program' | 'place' | 'film' | 'recording';
 export type Track = 'abbie' | 'will' | 'both' | 'world';
 
 export interface ArchiveItem {
@@ -35,6 +37,7 @@ export interface ArchiveItem {
   year: number;          // for sorting
   image?: ImageMetadata;
   audio?: string;        // path under /public
+  video?: string;        // path under /public, for films; `image` is then the poster frame
   label?: string;        // record label and catalog number, for recordings
   performers?: string;   // who is heard, for recordings
   chapter?: string;      // where the book tells this part of the story
@@ -285,6 +288,55 @@ export const archive: ArchiveItem[] = [
     source: 'Miriam Matthews Photograph Collection, UCLA Library',
     sourceUrl: 'https://digital.library.ucla.edu/catalog/ark:/21198/z1tb2r4f',
     rights: 'Public domain.',
+  },
+  {
+    slug: 'cake-walk-biograph-1903',
+    title: 'Cake Walk',
+    kind: 'film',
+    track: 'both',
+    date: '1903',
+    year: 1903,
+    image: cakeWalkFrame,
+    video: '/video/cake-walk-biograph-1903.mp4',
+    performers: 'Five unidentified performers, three men and two women',
+    label: 'American Mutoscope & Biograph, production no. 207, copyrighted May 11, 1903',
+    people: [],
+    description: 'Twenty-four seconds of the cakewalk, filmed by Biograph the year In Dahomey opened on Broadway. Three men in dark suits and two women in high-collared dresses strut in place; the center man twirls a cane and comes toward the camera.',
+    context: 'Biograph listed this in its November 1902 catalogue and copyrighted it in May 1903. The performers are not named; the Library of Congress notes that an older reference crediting the Americus Quartet is wrong. It survives as a paper print, the strip of photographic paper studios deposited for copyright before film itself could be registered, which is why it exists at all.',
+    chapter: 'Prologue and Chapter 11, Crossing to Freedom',
+    story: [
+      'The cakewalk is in the title of the show Abbie auditions for: Clorindy, or The Origin of the Cake Walk. It was a strutting, high-stepping couples dance that began on plantations as a parody of white ballroom manners, with a cake as the prize, and by the 1890s had become a craze in New York theatres and ballrooms. Cook built Clorindy around it and In Dahomey ended with it.',
+      'This film was shot in the months around In Dahomey\'s Broadway opening in February 1903. It is the same dance the Williams and Walker company took to London that summer, where Aida Overton Walker was asked to teach it to society hostesses. Abbie was in that company.',
+      'Films like this were made for peep-show machines and vaudeville programs, and Biograph\'s own catalogue used a slur in the title. The performers dance it straight, in formal dress, with a flag. Watch it beside the "Comedy Cake Walk" filmed the same season to see the two versions of the dance the era sold: the elegant one and the caricature.',
+    ],
+    source: 'Library of Congress, Paper Print Collection, Motion Picture, Broadcasting and Recorded Sound Division',
+    sourceUrl: 'https://www.loc.gov/item/96520361/',
+    rights: 'No known restrictions. The Library of Congress is not aware of any copyright in this film.',
+    featured: true,
+  },
+  {
+    slug: 'comedy-cake-walk-biograph-1903',
+    title: 'Comedy Cake Walk',
+    kind: 'film',
+    track: 'both',
+    date: '1903',
+    year: 1903,
+    image: comedyCakeWalkFrame,
+    video: '/video/comedy-cake-walk-biograph-1903.mp4',
+    performers: 'Five unidentified performers, three men and two women',
+    label: 'American Mutoscope & Biograph, production no. 234, copyrighted May 11, 1903',
+    people: [],
+    description: 'Twenty-seven seconds of an exaggerated cakewalk in evening clothes: tailcoats, top hats, canes, and one very long overcoat.',
+    context: 'Copyrighted the same day as "Cake Walk" and almost certainly filmed with the same company. Where the other film is a straight performance, this one plays the dance for comedy, with the costumes and gestures pushed toward caricature. Both survive as paper prints at the Library of Congress.',
+    chapter: 'Prologue and Chapter 11, Crossing to Freedom',
+    story: [
+      'The argument Abbie and Will Marion have on the Casino roof, over whether his music is art or a "coon song," was an argument about exactly this. The cakewalk could be danced with dignity or as a joke on the dancers, and audiences in 1903 paid for both. Cook spent his career trying to keep the music on the right side of that line while making a living on the other.',
+      'Williams and Walker themselves worked both sides. Bert Williams performed in blackface; George Walker played the dandy in clothes not far from the long overcoat in this film. In Dahomey made the pair the most famous Black performers in America and let Cook write for a full Broadway orchestra.',
+      'The performers here are unnamed, as they are in nearly every film of Black entertainers from these years. That anonymity is part of the story the book tells: Abbie and Will Marion were among the few who got their names on the bill.',
+    ],
+    source: 'Library of Congress, Paper Print Collection, Motion Picture, Broadcasting and Recorded Sound Division',
+    sourceUrl: 'https://www.loc.gov/item/96520379/',
+    rights: 'No known restrictions. The Library of Congress is not aware of any copyright in this film.',
   },
   {
     slug: 'on-emancipation-day-1902',
@@ -569,10 +621,12 @@ export const kinds: Record<Kind, string> = {
   score: 'Sheet music',
   program: 'Programs',
   place: 'Places',
+  film: 'Films',
   recording: 'Recordings',
 };
 
 export const bySlug = (slug: string) => archive.find((i) => i.slug === slug);
 export const featured = archive.filter((i) => i.featured);
 export const recordings = archive.filter((i) => i.kind === 'recording').sort((a, b) => a.year - b.year);
+export const films = archive.filter((i) => i.kind === 'film').sort((a, b) => a.year - b.year);
 export const sorted = [...archive].sort((a, b) => a.year - b.year);

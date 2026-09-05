@@ -7,7 +7,8 @@ import { featured, recordings } from '../data/archive';
 import Player from '../components/Player.astro';
 import abbie from '../assets/archive/abbie-mitchell-portrait.jpg';
 import will from '../assets/archive/will-marion-cook-portrait.jpg';
-const picks = featured.filter((i) => i.kind !== 'recording' && !['abbie-mitchell-portrait', 'will-marion-cook-portrait'].includes(i.slug)).slice(0, 4);
+const stills = featured.filter((i) => i.kind !== 'recording' && !['abbie-mitchell-portrait', 'will-marion-cook-portrait'].includes(i.slug));
+const picks = [...stills.filter((i) => i.kind === 'film'), ...stills.filter((i) => i.kind !== 'film')].slice(0, 4);
 const listen = recordings.filter((r) => r.featured).slice(0, 4);
 ---
 <Layout>

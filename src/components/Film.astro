@@ -1,0 +1,30 @@
+---
+/* A silent film on the page. Poster frame, native controls, loops because these run under thirty seconds. */
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+import { getImage } from 'astro:assets';
+import type { ArchiveItem } from '../data/archive';
+interface Props { item: ArchiveItem; autoplay?: boolean; }
+const { item, autoplay = false } = Astro.props;
+const poster = item.image ? await getImage({ src: item.image, width: 1280, format: 'jpg' }) : null;
+---
+<figure class="film">
+  <video
+    controls
+    loop
+    muted
+    playsinline
+    preload="metadata"
+    poster={poster?.src}
+    src={`${base}${item.video}`}
+    autoplay={autoplay}
+    aria-label={`${item.title}, silent film, ${item.date}`}
+  >
+    Your browser cannot play this film. <a href={`${base}${item.video}`}>Download it</a> instead.
+  </video>
+  <figcaption>Silent. {item.performers}{item.label && <span> · {item.label}</span>}</figcaption>
+</figure>
+
+<style>
+  .film video { width: 100%; display: block; background: #000; aspect-ratio: 4 / 3; }
+  .film figcaption { margin-top: 10px; }
+</style>
