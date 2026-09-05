@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ArchiveTile from '../../components/ArchiveTile.astro';
+import Player from '../../components/Player.astro';
 import { sorted, kinds, type Kind } from '../../data/archive';
 const groups = (Object.keys(kinds) as Kind[]).map((k) => ({ kind: k, label: kinds[k], items: sorted.filter((i) => i.kind === k) })).filter((g) => g.items.length);
 ---
@@ -19,9 +20,16 @@ const groups = (Object.keys(kinds) as Kind[]).map((k) => ({ kind: k, label: kind
     {groups.map((g) => (
       <section class="section" id={g.kind}>
         <div class="section-head"><h2>{g.label}</h2></div>
-        <div class="grid-4">
-          {g.items.map((item) => <ArchiveTile item={item} />)}
-        </div>
+        {g.kind === 'recording' ? (
+          <div class="players">
+            <p class="intro">Acoustic recordings, 1900 to 1919, from the Library of Congress National Jukebox and the Internet Archive's Great 78 Project. All are in the public domain. Each title opens a page with the full record of who made it and where it came from.</p>
+            {g.items.map((item) => <Player item={item} compact />)}
+          </div>
+        ) : (
+          <div class="grid-4">
+            {g.items.map((item) => <ArchiveTile item={item} />)}
+          </div>
+        )}
       </section>
     ))}
   </div>
@@ -32,4 +40,6 @@ const groups = (Object.keys(kinds) as Kind[]).map((k) => ({ kind: k, label: kind
   .jump a { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); text-decoration: none; font-weight: 500; }
   .jump a span { color: var(--gilt); margin-left: 4px; }
   .jump a:hover { color: var(--oxblood); }
+  .players { max-width: 760px; }
+  .intro { color: var(--ink-2); max-width: 62ch; margin: 0 0 20px; }
 </style>

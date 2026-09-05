@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Design choices · The Diva and the Maestro</title>
+<style>
+  :root { --bg: #1C1C1E; --bar: #2A2A2E; --fg: #F2F2F2; --dim: #A0A0A6; --acc: #F5C451; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.4 -apple-system, "Helvetica Neue", Arial, sans-serif; display: flex; flex-direction: column; }
+  .bar { background: var(--bar); border-bottom: 1px solid #3A3A40; padding: 10px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .bar .title { font-weight: 600; margin-right: 8px; white-space: nowrap; }
+  .tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+  .tabs button { background: transparent; border: 1px solid #45454C; color: var(--fg); padding: 6px 12px; border-radius: 999px; cursor: pointer; font: inherit; }
+  .tabs button:hover { border-color: var(--acc); }
+  .tabs button[aria-selected="true"] { background: var(--acc); color: #1C1C1E; border-color: var(--acc); font-weight: 600; }
+  .tabs button b { opacity: .55; font-weight: 400; margin-right: 4px; }
+  .right { margin-left: auto; display: flex; gap: 6px; align-items: center; }
+  .right button, .right a { background: transparent; border: 1px solid #45454C; color: var(--dim); padding: 5px 10px; border-radius: 6px; cursor: pointer; font: inherit; text-decoration: none; }
+  .right button[aria-pressed="true"] { color: var(--fg); border-color: var(--fg); }
+  .note { padding: 8px 16px; color: var(--dim); border-bottom: 1px solid #3A3A40; background: #232326; }
+  .note b { color: var(--fg); }
+  .stage { flex: 1; min-height: 0; display: flex; justify-content: center; background: #111; }
+  iframe { border: 0; width: 100%; height: 100%; background: #fff; transition: width .2s; }
+  iframe.tablet { width: 820px; }
+  iframe.phone { width: 400px; }
+  kbd { font: 12px ui-monospace, Menlo, monospace; border: 1px solid #55555C; border-radius: 4px; padding: 0 5px; color: var(--dim); }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <span class="title">Home page · design choices</span>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="right">
+      <button data-w="desktop" aria-pressed="true">Desktop</button>
+      <button data-w="tablet">Tablet</button>
+      <button data-w="phone">Phone</button>
+      <a id="open" href="#" target="_blank" title="Open this design on its own">Open ↗</a>
+    </div>
+  </div>
+  <div class="note" id="note"></div>
+  <div class="stage"><iframe id="frame" title="Design preview"></iframe></div>
+
+<script>
+  const designs = [
+    { file: '01-showbill.html', name: 'Showbill',
+      note: '<b>An 1898 theatre bill.</b> Wood-type slab headline, condensed capitals, Old Standard body. Aged poster paper, poster red, navy, mustard. Sections are “Acts”; buttons are ticket stubs; portraits in oval frames.' },
+    { file: '02-lithograph.html', name: 'Lithograph',
+      note: '<b>A two-colour sheet-music cover.</b> Fraunces (a soft 1900s display face) with Work Sans. Cream, teal and vermilion; photographs printed as duotones with a misregistered title. Staff lines in the background, a skewed colour band.' },
+    { file: '03-the-box.html', name: 'The Box',
+      note: '<b>The archive on a table.</b> Typewriter labels, Baskerville prose, a fountain-pen hand for margin notes. Kraft, manila and white sheets with tape, paper clips, index cards and a stamped “A true story”. The site becomes the box itself.' },
+    { file: '04-velvet.html', name: 'Velvet',
+      note: '<b>The dark direction, done warm.</b> Aubergine and plum instead of black, gold rules, cream “programme” sections in the middle so the page is not dark end to end. Cormorant italic, Cinzel caps, Jost body. Full-height stage hero with the portraits fading into the curtain.' },
+    { file: '05-marquee.html', name: 'Marquee',
+      note: '<b>A contemporary publisher campaign.</b> Wide black Archivo, Instrument Serif italics, white ground with cobalt, coral and lemon. Cut-out photo collage with stickers, a scrolling ticker of facts, a big-number stat bar. The most modern of the six.' },
+    { file: '06-deco.html', name: 'Deco',
+      note: '<b>Harlem Renaissance geometry.</b> Aaron Douglas palette: sand, mauve, dusty rose, ochre, olive, near-black. Limelight marquee lettering with Poiret One and Jost. Concentric rings and sun rays behind circular portraits, chamfered corners, zig-zag rules.' },
+  ];
+  const tabs = document.getElementById('tabs');
+  const frame = document.getElementById('frame');
+  const note = document.getElementById('note');
+  const open = document.getElementById('open');
+  let current = 0;
+
+  designs.forEach((d, i) => {
+    const b = document.createElement('button');
+    b.role = 'tab';
+    b.innerHTML = `<b>${i + 1}</b>${d.name}`;
+    b.addEventListener('click', () => show(i));
+    tabs.appendChild(b);
+  });
+
+  function show(i) {
+    current = (i + designs.length) % designs.length;
+    const d = designs[current];
+    [...tabs.children].forEach((b, j) => b.setAttribute('aria-selected', j === current));
+    frame.src = d.file;
+    open.href = d.file;
+    note.innerHTML = `${current + 1} of ${designs.length} · ${d.note} &nbsp; <kbd>←</kbd> <kbd>→</kbd> to switch`;
+    history.replaceState(null, '', '#' + d.file.replace('.html', ''));
+  }
+
+  document.querySelectorAll('.right button').forEach((b) => b.addEventListener('click', () => {
+    document.querySelectorAll('.right button').forEach((x) => x.setAttribute('aria-pressed', x === b));
+    frame.className = b.dataset.w === 'desktop' ? '' : b.dataset.w;
+  }));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') show(current + 1);
+    if (e.key === 'ArrowLeft') show(current - 1);
+    if (/^[1-6]$/.test(e.key)) show(Number(e.key) - 1);
+  });
+  frame.addEventListener('load', () => {
+    try { frame.contentDocument.addEventListener('keydown', (e) => document.dispatchEvent(new KeyboardEvent('keydown', { key: e.key }))); } catch (_) {}
+  });
+
+  const start = designs.findIndex((d) => '#' + d.file.replace('.html', '') === location.hash);
+  show(start >= 0 ? start : 0);
+</script>
+</body>
+</html>

@@ -3,10 +3,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import ArchiveTile from '../components/ArchiveTile.astro';
-import { featured } from '../data/archive';
+import { featured, recordings } from '../data/archive';
+import Player from '../components/Player.astro';
 import abbie from '../assets/archive/abbie-mitchell-portrait.jpg';
 import will from '../assets/archive/will-marion-cook-portrait.jpg';
-const picks = featured.filter((i) => !['abbie-mitchell-portrait', 'will-marion-cook-portrait'].includes(i.slug)).slice(0, 4);
+const picks = featured.filter((i) => i.kind !== 'recording' && !['abbie-mitchell-portrait', 'will-marion-cook-portrait'].includes(i.slug)).slice(0, 4);
+const listen = recordings.filter((r) => r.featured).slice(0, 4);
 ---
 <Layout>
   <section class="hero">
@@ -102,6 +104,22 @@ const picks = featured.filter((i) => !['abbie-mitchell-portrait', 'will-marion-c
   </section>
 
   <section class="section">
+    <div class="wrap listen">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Listen</p>
+          <h2>Hear the music.</h2>
+        </div>
+        <p>Cook's songs as they were recorded in his lifetime, from a Sousa's Band disc of 1900 to Jim Europe's singers in 1919. Twelve recordings so far, all public domain.</p>
+      </div>
+      <div class="players">
+        {listen.map((item) => <Player item={item} compact />)}
+      </div>
+      <p style="margin-top:28px"><a class="btn" href={`${base}/archive#recording`}>All recordings</a></p>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="wrap">
       <p class="eyebrow">The authors</p>
       <div class="grid-3 authors">
@@ -138,6 +156,7 @@ const picks = featured.filter((i) => !['abbie-mitchell-portrait', 'will-marion-c
   .two h3 { font-size: clamp(28px, 3.2vw, 36px); margin-bottom: 4px; }
   .dates { font-size: 13px; letter-spacing: .1em; color: var(--muted); margin: 0 0 12px; }
 
+  .listen .players { max-width: 760px; }
   .authors h3 { font-size: 22px; margin-bottom: 4px; }
   .authors p { color: var(--ink-2); font-size: 15.5px; }
 

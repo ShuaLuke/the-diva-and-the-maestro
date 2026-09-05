@@ -1,0 +1,34 @@
+---
+/* A record on the page: title, who is heard, and the browser's audio controls.
+   `compact` is for lists; the full form is for an item's own page. */
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+import type { ArchiveItem } from '../data/archive';
+interface Props { item: ArchiveItem; compact?: boolean; }
+const { item, compact = false } = Astro.props;
+---
+<div class:list={['player', compact && 'compact']}>
+  <div class="disc" aria-hidden="true"><span></span></div>
+  <div class="body">
+    <p class="title">{compact ? <a href={`${base}/archive/${item.slug}`}>{item.title}</a> : item.title}</p>
+    <p class="who">{item.performers}{item.label && <span> · {item.label}</span>}</p>
+    <audio controls preload="none" src={`${base}${item.audio}`}>
+      Your browser cannot play this file. <a href={`${base}${item.audio}`}>Download it</a> instead.
+    </audio>
+  </div>
+</div>
+
+<style>
+  .player { display: grid; grid-template-columns: 72px 1fr; gap: 18px; align-items: start; padding: 18px 0; border-top: 1px solid var(--line); }
+  .player:last-child { border-bottom: 1px solid var(--line); }
+  .disc { width: 72px; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, var(--gilt) 0 22%, var(--ink) 23% 100%); position: relative; }
+  .disc span { position: absolute; inset: 0; border-radius: 50%; background: repeating-radial-gradient(circle, transparent 0 3px, rgba(255,255,255,.06) 3px 4px); }
+  .title { font-family: var(--display); font-size: 21px; margin: 0 0 2px; line-height: 1.2; }
+  .title a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--gilt); }
+  .title a:hover { color: var(--oxblood); }
+  .who { font-size: 13.5px; color: var(--muted); margin: 0 0 10px; }
+  audio { width: 100%; max-width: 520px; height: 36px; }
+  .compact .disc { width: 56px; }
+  .compact { grid-template-columns: 56px 1fr; padding: 14px 0; }
+  .compact .title { font-size: 19px; }
+  @media (max-width: 480px) { .player, .compact { grid-template-columns: 1fr; gap: 8px; } .disc { display: none; } }
+</style>

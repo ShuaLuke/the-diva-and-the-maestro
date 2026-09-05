@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lithograph · The Diva and the Maestro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Work+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" />
+<style>
+  :root {
+    --cream: #F7EEDA;
+    --cream-2: #EFE2C3;
+    --teal: #0E5B60;
+    --teal-deep: #083E42;
+    --verm: #D4502A;
+    --ink: #1C2526;
+    --display: "Fraunces", "Cooper Black", Georgia, serif;
+    --body: "Work Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; }
+  img { max-width: 100%; display: block; }
+  a { color: var(--verm); }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 44px); }
+  h1, h2, h3 { font-family: var(--display); font-variation-settings: "SOFT" 100, "WONK" 1; font-weight: 800; line-height: 1; margin: 0; }
+
+  /* staff lines */
+  .staff { background-image: repeating-linear-gradient(to bottom, transparent 0 22px, rgba(14,91,96,.18) 22px 23px); }
+
+  header { background: var(--teal); color: var(--cream); }
+  header .row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 0; flex-wrap: wrap; }
+  .brand { font-family: var(--display); font-weight: 700; font-size: 22px; color: var(--cream); text-decoration: none; font-variation-settings: "SOFT" 100, "WONK" 1; }
+  .brand i { font-style: italic; font-weight: 400; color: #F3B58E; }
+  header nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 20px; }
+  header nav a { color: var(--cream); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: .02em; opacity: .9; }
+  header nav a:hover { opacity: 1; text-decoration: underline; text-decoration-color: var(--verm); text-underline-offset: 5px; text-decoration-thickness: 2px; }
+
+  /* cover */
+  .cover { position: relative; overflow: hidden; padding: clamp(40px, 7vw, 96px) 0 0; }
+  .cover .grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal); margin: 0 0 18px; display: inline-block; border: 2px solid var(--teal); padding: 4px 10px; border-radius: 999px; }
+  .cover h1 { font-size: clamp(64px, 10vw, 136px); color: var(--verm); letter-spacing: -.02em; text-shadow: 4px 4px 0 var(--teal); }
+  .cover h1 .and { display: block; font-size: .3em; font-weight: 400; font-style: italic; color: var(--teal); text-shadow: none; margin: .25em 0 .15em .1em; }
+  .cover .sub { font-family: var(--display); font-weight: 500; font-size: clamp(20px, 2.4vw, 27px); line-height: 1.25; margin: 26px 0 8px; max-width: 30ch; font-variation-settings: "SOFT" 60; }
+  .cover .by { font-size: 14px; letter-spacing: .04em; margin: 0 0 22px; color: var(--teal); font-weight: 600; }
+  .cover .dek { max-width: 54ch; font-size: 17.5px; margin: 0 0 26px; }
+  .btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 13px 24px; border-radius: 999px; font-weight: 600; font-size: 15px; text-decoration: none; border: 2px solid var(--teal); color: var(--teal); background: transparent; }
+  .btn.solid { background: var(--verm); border-color: var(--verm); color: var(--cream); }
+  .btn:hover { background: var(--teal); color: var(--cream); border-color: var(--teal); }
+
+  .duo { position: relative; }
+  .duo .plate { position: relative; background: var(--teal); padding: 0; }
+  .duo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; filter: grayscale(1) contrast(1.15) brightness(1.05); mix-blend-mode: screen; opacity: .95; }
+  .duo .plate.will { position: absolute; width: 58%; right: -6%; bottom: -14%; background: var(--verm); box-shadow: 0 0 0 8px var(--cream); }
+  .duo .plate.will img { mix-blend-mode: multiply; filter: grayscale(1) contrast(1.2) brightness(1.1); }
+  .duo .plate.abbie { width: 78%; }
+  .duo .label { position: absolute; left: -10px; top: 18px; background: var(--cream); color: var(--teal); font-family: var(--display); font-weight: 700; font-size: 18px; padding: 4px 12px; transform: rotate(-3deg); box-shadow: 3px 3px 0 var(--teal); }
+  .duo .plate.will .label { left: auto; right: -10px; top: auto; bottom: 16px; color: var(--verm); box-shadow: 3px 3px 0 var(--verm); transform: rotate(2deg); }
+
+  .band { margin-top: clamp(60px, 9vw, 120px); background: var(--verm); color: var(--cream); transform: skewY(-2deg); transform-origin: left; }
+  .band > .wrap { transform: skewY(2deg); padding-top: 18px; padding-bottom: 18px; font-family: var(--display); font-weight: 700; font-size: clamp(18px, 2.4vw, 26px); display: flex; gap: 40px; flex-wrap: wrap; justify-content: space-between; }
+
+  section.block { padding: clamp(48px, 7vw, 96px) 0; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: start; }
+  .kicker { font-family: var(--display); font-weight: 400; font-style: italic; font-size: 22px; color: var(--verm); margin: 0 0 8px; }
+  h2 { font-size: clamp(34px, 5vw, 58px); letter-spacing: -.02em; color: var(--teal); }
+  .big { font-family: var(--display); font-weight: 500; font-size: clamp(20px, 2.2vw, 24px); line-height: 1.4; font-variation-settings: "SOFT" 60; }
+  .link { font-weight: 600; color: var(--teal); text-decoration: none; border-bottom: 2px solid var(--verm); }
+
+  .people { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .person { border-radius: 24px; padding: clamp(24px, 3.5vw, 44px); color: var(--cream); }
+  .person.diva { background: var(--verm); }
+  .person.maestro { background: var(--teal); }
+  .person .who { font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; opacity: .85; margin: 0; }
+  .person h3 { font-size: clamp(30px, 3.6vw, 42px); margin: 6px 0 2px; }
+  .person .dates { font-family: var(--display); font-style: italic; font-weight: 400; font-size: 18px; margin: 0 0 14px; opacity: .9; }
+  .person p { margin: 0 0 1em; }
+  .person a { color: var(--cream); font-weight: 600; }
+
+  .prologue { background: var(--teal); color: var(--cream); }
+  .prologue .two { align-items: center; }
+  .prologue h2 { color: var(--cream); }
+  .prologue blockquote { margin: 0; font-family: var(--display); font-weight: 600; font-style: italic; font-size: clamp(24px, 3.2vw, 36px); line-height: 1.25; color: #F3B58E; font-variation-settings: "SOFT" 100, "WONK" 1; }
+  .prologue .btn { border-color: var(--cream); color: var(--cream); }
+  .prologue .btn:hover { background: var(--cream); color: var(--teal); }
+
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+  .tile { text-decoration: none; color: var(--ink); }
+  .tile .plate { background: var(--teal); border-radius: 16px; overflow: hidden; }
+  .tile:nth-child(even) .plate { background: var(--verm); }
+  .tile img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; filter: grayscale(1) contrast(1.2); mix-blend-mode: screen; transition: transform .4s; }
+  .tile:hover img { transform: scale(1.03); }
+  .tile b { display: block; font-family: var(--display); font-weight: 700; font-size: 18px; margin-top: 12px; line-height: 1.2; }
+  .tile span { font-size: 14px; color: var(--teal); font-weight: 500; }
+
+  .authors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .authors div { border-top: 4px solid var(--verm); padding-top: 14px; }
+  .authors h3 { font-size: 24px; margin: 0 0 6px; color: var(--teal); }
+  .authors p { margin: 0; }
+
+  footer { background: var(--teal-deep); color: var(--cream); padding: 56px 0 36px; }
+  footer .cols { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: start; }
+  footer h3 { font-size: 28px; margin: 0 0 10px; }
+  footer form { display: flex; gap: 8px; margin: 10px 0; }
+  footer input { flex: 1; padding: 12px 16px; border-radius: 999px; border: 0; font: inherit; }
+  footer button { padding: 12px 20px; border-radius: 999px; border: 0; background: var(--verm); color: var(--cream); font: inherit; font-weight: 600; cursor: pointer; }
+  footer small { display: block; opacity: .75; margin-top: 28px; font-size: 13px; }
+
+  @media (max-width: 800px) {
+    .cover .grid, .two, .people, footer .cols { grid-template-columns: 1fr; }
+    .tiles { grid-template-columns: 1fr 1fr; }
+    .authors { grid-template-columns: 1fr; }
+    .duo { margin: 0 auto 60px; max-width: 420px; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap row">
+      <a class="brand" href="#">The Diva <i>and</i> the Maestro</a>
+      <nav><ul>
+        <li><a href="#">The Book</a></li><li><a href="#">The Box</a></li><li><a href="#">The Diva</a></li><li><a href="#">The Maestro</a></li><li><a href="#">Timeline</a></li><li><a href="#">Archive</a></li><li><a href="#">People</a></li><li><a href="#">Authors</a></li>
+      </ul></nav>
+    </div>
+  </header>
+
+  <section class="cover staff">
+    <div class="wrap grid">
+      <div>
+        <span class="eyebrow">A novel based on a true story</span>
+        <h1>The Diva<span class="and">and</span>the Maestro</h1>
+        <p class="sub">The Life and Times of Abbie Mitchell and Will Marion Cook</p>
+        <p class="by">Jacques Cook · Antoinette Cook Bush · Penny Daniels</p>
+        <p class="dek">In the summer of 1898, a fourteen-year-old soprano climbed to the roof of the Casino Theatre to audition for the most arrogant man on Broadway. He hired her for thirty dollars a week. What followed was a marriage, a musical revolution, and a story their own family did not know until they found it in a box.</p>
+        <div class="btns"><a class="btn solid" href="#">About the book</a><a class="btn" href="#">Read the prologue</a></div>
+      </div>
+      <div class="duo">
+        <div class="plate abbie"><img src="../src/assets/archive/abbie-mitchell-portrait.jpg" alt="Abbie Mitchell" /><span class="label">Abbie Mitchell</span></div>
+        <div class="plate will"><img src="../src/assets/archive/will-marion-cook-portrait.jpg" alt="Will Marion Cook" /><span class="label">Will Marion Cook</span></div>
+      </div>
+    </div>
+    <div class="band"><div class="wrap"><span>A legendary love affair.</span><span>Inarguable genius.</span><span>Ground-breaking art.</span></div></div>
+  </section>
+
+  <section class="block">
+    <div class="wrap two">
+      <div>
+        <p class="kicker">The Box</p>
+        <h2>It started with a cardboard box.</h2>
+      </div>
+      <div>
+        <p class="big">After his father died, Jacques Cook found a large box in the house, stuffed with hundreds of pages of prose. The pages told the story of his grandparents: two Black artists, one generation out of slavery, who reached the heights of American music while Jim Crow tried to stop them at every turn.</p>
+        <p>Will Marion died before Jacques was born. Abbie died when he was a boy. The box gave them back to him, and this book gives them to everyone else.</p>
+        <a class="link" href="#">How the book came to be</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0">
+    <div class="wrap people">
+      <article class="person diva">
+        <p class="who">The Diva</p>
+        <h3>Abbie Mitchell</h3>
+        <p class="dates">1884–1960</p>
+        <p>Born to a Jewish father and a Black mother, she walked onto Broadway at fourteen and sang for a king at nineteen. Decades later she was the first voice to sing "Summertime" in <em>Porgy and Bess</em>.</p>
+        <a href="#">Her story →</a>
+      </article>
+      <article class="person maestro">
+        <p class="who">The Maestro</p>
+        <h3>Will Marion Cook</h3>
+        <p class="dates">1869–1944</p>
+        <p>A violin prodigy trained in Berlin and by Dvořák, he wrote the first all-Black Broadway musical, took Black American music to Europe, and taught a young Duke Ellington.</p>
+        <a href="#">His story →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="block prologue">
+    <div class="wrap two">
+      <div>
+        <p class="kicker" style="color:#F3B58E">From the prologue</p>
+        <h2>The Audition.<br />July 12, 1898.</h2>
+        <p style="margin-top:18px;max-width:46ch">Abbie Mitchell has just lost her father and her grandmother. Her aunt has spent her last pennies on a dress. And the man at the piano is about to change her life.</p>
+        <a class="btn" href="#">Read the prologue</a>
+      </div>
+      <blockquote>"You have a glorious voice, little girl, plenty of fire, but you can't sing a damn thing!"</blockquote>
+    </div>
+  </section>
+
+  <section class="block staff">
+    <div class="wrap">
+      <p class="kicker">From the archive</p>
+      <h2 style="margin-bottom:28px">Photographs, scores, and places.</h2>
+      <div class="tiles">
+        <a class="tile" href="#"><div class="plate"><img src="../src/assets/archive/darktown-is-out-tonight-cover-1898.jpg" alt="" /></div><b>Darktown Is Out To-night</b><span>Sheet music · 1898</span></a>
+        <a class="tile" href="#"><div class="plate"><img src="../src/assets/archive/love-in-a-cottage-cover-1898.jpg" alt="" /></div><b>Love in a Cottage Is Best</b><span>Sheet music · 1898</span></a>
+        <a class="tile" href="#"><div class="plate"><img src="../src/assets/archive/in-dahomey-cakewalk-1903.jpg" alt="" /></div><b>The cake walk in In Dahomey</b><span>Photograph · 1903</span></a>
+        <a class="tile" href="#"><div class="plate"><img src="../src/assets/archive/casino-theatre-roof-garden.jpg" alt="" /></div><b>The Casino Theatre Roof Garden</b><span>Place · c. 1890s</span></a>
+      </div>
+      <p style="margin-top:28px"><a class="btn" href="#">Browse the archive</a></p>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <p class="kicker">The authors</p>
+      <div class="authors">
+        <div><h3>Jacques Cook</h3><p>Grandson of Abbie and Will Marion. Found the box.</p></div>
+        <div><h3>Antoinette Cook Bush</h3><p>Great-granddaughter. Jacques's niece.</p></div>
+        <div><h3>Penny Daniels</h3><p>Writer and family friend.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap cols">
+      <div>
+        <h3>The Diva <i style="font-weight:400;color:#F3B58E">and</i> the Maestro</h3>
+        <p style="margin:0;opacity:.85">The Life and Times of Abbie Mitchell and Will Marion Cook. A novel based on a true story.</p>
+      </div>
+      <div>
+        <p style="margin:0;font-weight:600">Hear about it first</p>
+        <form onsubmit="return false"><input type="email" placeholder="Your email" /><button>Subscribe</button></form>
+        <p style="margin:0;font-size:14px;opacity:.8">Readings, recordings, and new finds from the archive.</p>
+      </div>
+    </div>
+    <div class="wrap"><small>© 2026 Jacques Cook, Antoinette Cook Bush, and Penny Daniels. Archive images are public domain or credited to their holders.</small></div>
+  </footer>
+</body>
+</html>
