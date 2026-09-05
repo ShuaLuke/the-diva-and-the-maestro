@@ -5,27 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Design choices · The Diva and the Maestro</title>
 <style>
-  :root { --bg: #1C1C1E; --bar: #2A2A2E; --fg: #F2F2F2; --dim: #A0A0A6; --acc: #F5C451; }
+  :root { --bg: #1C1C1E; --bar: #2A2A2E; --panel: #232326; --fg: #F2F2F2; --dim: #A0A0A6; --acc: #F5C451; --line: #3A3A40; }
   * { box-sizing: border-box; }
   html, body { height: 100%; }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.4 -apple-system, "Helvetica Neue", Arial, sans-serif; display: flex; flex-direction: column; }
-  .bar { background: var(--bar); border-bottom: 1px solid #3A3A40; padding: 10px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-  .bar .title { font-weight: 600; margin-right: 8px; white-space: nowrap; }
-  .tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.45 -apple-system, "Helvetica Neue", Arial, sans-serif; display: flex; flex-direction: column; }
+  .bar { background: var(--bar); border-bottom: 1px solid var(--line); padding: 10px 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .bar .title { font-weight: 600; margin-right: 4px; white-space: nowrap; }
+  .tabs { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
   .tabs button { background: transparent; border: 1px solid #45454C; color: var(--fg); padding: 6px 12px; border-radius: 999px; cursor: pointer; font: inherit; }
   .tabs button:hover { border-color: var(--acc); }
   .tabs button[aria-selected="true"] { background: var(--acc); color: #1C1C1E; border-color: var(--acc); font-weight: 600; }
   .tabs button b { opacity: .55; font-weight: 400; margin-right: 4px; }
+  .tabs .sep { width: 1px; height: 22px; background: #55555C; margin: 0 6px; }
   .right { margin-left: auto; display: flex; gap: 6px; align-items: center; }
   .right button, .right a { background: transparent; border: 1px solid #45454C; color: var(--dim); padding: 5px 10px; border-radius: 6px; cursor: pointer; font: inherit; text-decoration: none; }
   .right button[aria-pressed="true"] { color: var(--fg); border-color: var(--fg); }
-  .note { padding: 8px 16px; color: var(--dim); border-bottom: 1px solid #3A3A40; background: #232326; }
-  .note b { color: var(--fg); }
-  .stage { flex: 1; min-height: 0; display: flex; justify-content: center; background: #111; }
+  .right button.thinkbtn { color: var(--acc); border-color: var(--acc); }
+
+  .note { background: var(--panel); border-bottom: 1px solid var(--line); }
+  .note .head { display: flex; align-items: center; gap: 10px; padding: 8px 16px; }
+  .note .head .n { color: var(--dim); }
+  .note .head .name { font-weight: 600; }
+  .note .head .vibe { color: var(--dim); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .note .head .vibe b { color: var(--fg); font-weight: 500; }
+  .note .head button { background: transparent; border: 1px solid #45454C; color: var(--dim); padding: 3px 9px; border-radius: 6px; cursor: pointer; font: inherit; font-size: 12px; white-space: nowrap; }
+  .note .head button:hover { color: var(--fg); }
+  .note .body { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px 24px; padding: 4px 16px 14px; border-top: 1px solid var(--line); }
+  .note.collapsed .body { display: none; }
+  .note .body h4 { margin: 0 0 4px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--acc); font-weight: 600; }
+  .note .body p { margin: 0; color: #D6D6DA; }
+  .note .body kbd { font: 12px ui-monospace, Menlo, monospace; border: 1px solid #55555C; border-radius: 4px; padding: 0 5px; color: var(--dim); }
+
+  .stage { flex: 1; min-height: 0; display: flex; justify-content: center; background: #111; position: relative; }
   iframe { border: 0; width: 100%; height: 100%; background: #fff; transition: width .2s; }
   iframe.tablet { width: 820px; }
   iframe.phone { width: 400px; }
-  kbd { font: 12px ui-monospace, Menlo, monospace; border: 1px solid #55555C; border-radius: 4px; padding: 0 5px; color: var(--dim); }
+
+  .think { position: absolute; inset: 0; background: rgba(17,17,17,.96); overflow: auto; padding: 32px 16px 60px; display: none; }
+  .think.open { display: block; }
+  .think .inner { max-width: 860px; margin: 0 auto; color: #E6E6EA; font-size: 15px; line-height: 1.55; }
+  .think h2 { font-size: 24px; margin: 0 0 6px; }
+  .think h3 { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--acc); margin: 28px 0 8px; }
+  .think p { margin: 0 0 10px; }
+  .think ul { margin: 0 0 10px; padding-left: 20px; }
+  .think li { margin-bottom: 6px; }
+  .think li b { color: #fff; }
+  .think .close { position: sticky; top: 0; float: right; background: var(--bar); border: 1px solid #45454C; color: var(--fg); padding: 6px 12px; border-radius: 6px; cursor: pointer; font: inherit; }
+  .think table { border-collapse: collapse; width: 100%; margin: 6px 0 12px; font-size: 14px; }
+  .think td, .think th { text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .think th { color: var(--dim); font-weight: 500; }
+  .think .rec { background: #2A2A2E; border-left: 3px solid var(--acc); padding: 12px 16px; margin-top: 8px; }
+  @media (max-width: 900px) { .note .body { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .note .body { grid-template-columns: 1fr; } .note .head .vibe { display: none; } }
 </style>
 </head>
 <body>
@@ -33,40 +64,132 @@
     <span class="title">Home page · design choices</span>
     <div class="tabs" role="tablist" id="tabs"></div>
     <div class="right">
+      <button class="thinkbtn" id="thinkBtn">Audience &amp; gold standard</button>
       <button data-w="desktop" aria-pressed="true">Desktop</button>
       <button data-w="tablet">Tablet</button>
       <button data-w="phone">Phone</button>
       <a id="open" href="#" target="_blank" title="Open this design on its own">Open ↗</a>
     </div>
   </div>
-  <div class="note" id="note"></div>
-  <div class="stage"><iframe id="frame" title="Design preview"></iframe></div>
+
+  <div class="note" id="note">
+    <div class="head">
+      <span class="n" id="nNum"></span>
+      <span class="name" id="nName"></span>
+      <span class="vibe" id="nVibe"></span>
+      <button id="toggle" aria-expanded="true">Hide notes</button>
+    </div>
+    <div class="body">
+      <div><h4>Vibe</h4><p id="bVibe"></p></div>
+      <div><h4>Rationale</h4><p id="bWhy"></p></div>
+      <div><h4>Who it is for</h4><p id="bWho"></p></div>
+      <div><h4>Watch out</h4><p id="bRisk"></p><p style="margin-top:8px;color:var(--dim)"><kbd>←</kbd> <kbd>→</kbd> or <kbd>1</kbd>–<kbd>0</kbd> to switch · <kbd>N</kbd> toggles notes</p></div>
+    </div>
+  </div>
+
+  <div class="stage">
+    <iframe id="frame" title="Design preview"></iframe>
+    <div class="think" id="think">
+      <div class="inner">
+        <button class="close" id="thinkClose">Close</button>
+        <h2>Who this site is for, and what the best sites of its kind do</h2>
+        <p style="color:var(--dim)">The thinking behind round two (designs 7 to 10), and a recommendation.</p>
+
+        <h3>The audience, in order</h3>
+        <ul>
+          <li><b>Readers of literary and historical fiction and narrative history.</b> Adults, skewing forty-five and up. Book clubs, public-radio listeners, people who buy hardcovers and read reviews. They trust restraint, real photographs with real captions, and a clear answer to "where do I get it".</li>
+          <li><b>People who care about the history itself.</b> Scholars of Black music and theatre, teachers, librarians, jazz and Broadway enthusiasts, readers of Black history and family history. They want the sources, the dates, the recordings, and the archive to feel trustworthy.</li>
+          <li><b>The trade and the press.</b> Reviewers, festival and event bookers, booksellers, agents and editors. They need the pitch in ten seconds, the authors, a press kit, and a contact.</li>
+        </ul>
+
+        <h3>What the gold-standard sites in this space have in common</h3>
+        <table>
+          <tr><th>Kind of site</th><th>Examples</th><th>What they do that works</th></tr>
+          <tr><td>Book pages at the literary houses</td><td>Knopf, Riverhead, FSG, Penguin Random House title pages</td><td>Cover first. One-paragraph pitch. Praise. A buy row with several retailers. Excerpt, authors, events, newsletter. Nothing clever, everything findable.</td></tr>
+          <tr><td>Editorial longform</td><td>The New York Times "Overlooked" series, The New Yorker, The Atlantic</td><td>Photographs at their natural proportions with captions that carry date, source and credit. One serif with character, one workhorse sans. A narrow reading measure, drop caps, pull quotes. Credibility through restraint.</td></tr>
+          <tr><td>Museum and archive exhibitions</td><td>The National Museum of African American History and Culture, the Schomburg Center, Library of Congress exhibitions</td><td>Objects with labels. Sound recordings presented as primary sources. Images shown unmanipulated. Timelines. Accessibility as a baseline.</td></tr>
+          <tr><td>Documentary companions</td><td>PBS and Ken Burns companion sites, musical and film companion sites</td><td>Chapters by date. Slow movement on still photographs. Audio front and center. A single strong emotional through-line.</td></tr>
+        </table>
+        <p>Shared principles: the photographs and recordings are the asset, so show them honestly and at their own proportions. Captions are content, not decoration. Type is large and the reading measure is narrow. Colour is warm and neutral with one accent, and the "black" version of that is deep brown or plum, not pure black. There is one clear action per screen. Decoration is earned, not applied.</p>
+
+        <h3>How the two rounds differ</h3>
+        <p>Round one (1 to 6) asks "what period or mood should the site wear". Round two (7 to 10) asks "what kind of site is this", and borrows the conventions those kinds of sites have already proven with this audience. Round-two designs use the archive's own metadata and the twelve recordings as content, which is the site's real advantage over any other book page.</p>
+
+        <h3>Recommendation</h3>
+        <div class="rec">
+          <p><b>Build on 7, Overlooked, with the buy row from 9 and the object labels and Listen section from 8.</b> The editorial form fits the first two audiences best, treats the photographs with the respect the family will want, and reads as serious and modern rather than as a template. The book-page conventions from 9 cover the trade and conversion. The object labels and recordings from 8 are what make this site more than a brochure.</p>
+          <p style="margin:0">If the authors want more warmth and theatre, 10 (Documentary) is the strongest emotional version and could be the home page over an editorial interior. Of round one, 3 (The Box) is the most distinctive idea and could survive as the design of the Box page alone.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
   const designs = [
-    { file: '01-showbill.html', name: 'Showbill',
-      note: '<b>An 1898 theatre bill.</b> Wood-type slab headline, condensed capitals, Old Standard body. Aged poster paper, poster red, navy, mustard. Sections are “Acts”; buttons are ticket stubs; portraits in oval frames.' },
-    { file: '02-lithograph.html', name: 'Lithograph',
-      note: '<b>A two-colour sheet-music cover.</b> Fraunces (a soft 1900s display face) with Work Sans. Cream, teal and vermilion; photographs printed as duotones with a misregistered title. Staff lines in the background, a skewed colour band.' },
-    { file: '03-the-box.html', name: 'The Box',
-      note: '<b>The archive on a table.</b> Typewriter labels, Baskerville prose, a fountain-pen hand for margin notes. Kraft, manila and white sheets with tape, paper clips, index cards and a stamped “A true story”. The site becomes the box itself.' },
-    { file: '04-velvet.html', name: 'Velvet',
-      note: '<b>The dark direction, done warm.</b> Aubergine and plum instead of black, gold rules, cream “programme” sections in the middle so the page is not dark end to end. Cormorant italic, Cinzel caps, Jost body. Full-height stage hero with the portraits fading into the curtain.' },
-    { file: '05-marquee.html', name: 'Marquee',
-      note: '<b>A contemporary publisher campaign.</b> Wide black Archivo, Instrument Serif italics, white ground with cobalt, coral and lemon. Cut-out photo collage with stickers, a scrolling ticker of facts, a big-number stat bar. The most modern of the six.' },
-    { file: '06-deco.html', name: 'Deco',
-      note: '<b>Harlem Renaissance geometry.</b> Aaron Douglas palette: sand, mauve, dusty rose, ochre, olive, near-black. Limelight marquee lettering with Poiret One and Jost. Concentric rings and sun rays behind circular portraits, chamfered corners, zig-zag rules.' },
+    { file: '01-showbill.html', name: 'Showbill', round: 1,
+      vibe: 'Loud, theatrical, 1898. A poster pasted on a wall on 39th Street.',
+      why: 'Wood-type slab headline, condensed capitals, Old Standard body on aged poster paper. Sections are "Acts", buttons are ticket stubs, portraits in oval frames. Borrows from Victorian showbills and the Clorindy era itself.',
+      who: 'Theatre people and Broadway-history readers. Anyone who wants the site to feel like an event.',
+      risk: 'Novelty wears. Hard to sustain on interior pages like the archive and the prologue, and the heavy type fights long reading.' },
+    { file: '02-lithograph.html', name: 'Lithograph', round: 1,
+      vibe: 'A two-colour sheet-music cover, printed slightly out of register.',
+      why: 'Fraunces, a soft 1900s display face, with Work Sans. Cream, teal and vermilion. Photographs printed as duotones, staff lines in the background, a skewed colour band. Borrows from the sheet-music covers already in the archive.',
+      who: 'Music lovers and design-aware readers. Friendly to a younger audience without leaving the period.',
+      risk: 'Duotones alter the photographs, which the family and scholars may not want. The most "designed" of the ten, so the most likely to date.' },
+    { file: '03-the-box.html', name: 'The Box', round: 1,
+      vibe: 'The archive laid out on a kitchen table, the afternoon it was found.',
+      why: 'Typewriter labels, Baskerville prose, a fountain-pen hand for margin notes. Kraft, manila and white sheets with tape, paper clips, index cards and a red "A true story" stamp. The site becomes the box itself.',
+      who: 'Readers drawn to the discovery story. Family-history and memoir readers.',
+      risk: 'Skeuomorphic tricks can read as scrapbook rather than serious history. Best as the design for the Box page rather than the whole site.' },
+    { file: '04-velvet.html', name: 'Velvet', round: 1,
+      vibe: 'The house lights down. Aubergine, gold, and a full-height stage.',
+      why: 'The dark direction done warm: aubergine and plum instead of black, gold rules, cream "programme" sections in the middle so the page is not dark end to end. Cormorant italic, Cinzel caps, Jost body. Portraits fade into the curtain.',
+      who: 'Readers who want romance and grandeur. Works well on a phone at night.',
+      risk: 'Dark heroes hide the photographs, which are the site\'s best asset. Cinzel caps can tip into perfume-ad territory.' },
+    { file: '05-marquee.html', name: 'Marquee', round: 1,
+      vibe: 'A contemporary publisher campaign. Bold, bright, fast.',
+      why: 'Wide black Archivo, Instrument Serif italics, white ground with cobalt, coral and lemon. Cut-out photo collage with stickers, a scrolling ticker of facts, a big-number stat bar. Borrows from current big-house marketing campaigns.',
+      who: 'A younger, social-media-first audience. Press and event bookers who want the pitch instantly.',
+      risk: 'Furthest from the period and from the core reader. The collage treats the portraits as graphics. May feel like it is shouting about a quiet story.' },
+    { file: '06-deco.html', name: 'Deco', round: 1,
+      vibe: 'Harlem Renaissance geometry. Rings, rays, and marquee lettering.',
+      why: 'An Aaron Douglas palette: sand, mauve, dusty rose, ochre, olive, near-black. Limelight marquee lettering with Poiret One and Jost. Concentric rings and sun rays behind circular portraits, chamfered cards, zig-zag rules.',
+      who: 'Readers of Harlem Renaissance history. Gives the Cook Harlem years and the Ellington link visual weight.',
+      risk: 'Deco is 1920s, and most of this story is 1898 to 1910. Limelight and Poiret One are hard to read at small sizes.' },
+    { file: '07-overlooked.html', name: 'Overlooked', round: 2,
+      vibe: 'A serious newspaper feature about two people history skipped. Quiet, credible, photographic.',
+      why: 'Modelled on editorial longform like the New York Times "Overlooked" series. Pure white, Newsreader and Public Sans, one red accent. A full-width lead photograph at its natural proportion with a real caption. Narrow measure, drop cap, pull quote, portraits as captioned figures, an inline recording.',
+      who: 'The core reader and the scholar. Reviewers and press, who recognise the form.',
+      risk: 'Understated. Needs the photographs to carry it, so image quality matters. The buy action is quieter than a publisher page would make it.' },
+    { file: '08-exhibition.html', name: 'Exhibition', round: 2,
+      vibe: 'A museum show you can walk through. Objects, labels, galleries, a listening room.',
+      why: 'Modelled on museum and archive sites such as the National Museum of African American History and Culture and the Schomburg Center. Greige and umber with bronze. Source Serif and Inter Tight. Every image is an object with title, date, source and rights. Galleries instead of sections, a Listen gallery with three real recordings, a timeline strip.',
+      who: 'Scholars, teachers, librarians, and the archive-minded reader. The most trustworthy of the ten.',
+      risk: 'Can feel institutional rather than personal. The love story has to come through the copy because the chrome will not carry it.' },
+    { file: '09-publisher.html', name: 'Publisher', round: 2,
+      vibe: 'A big-house book page. Cover first, praise, buy row, excerpt, authors, events.',
+      why: 'Modelled on the title pages of the literary houses. Literata and DM Sans, white with forest green and gold. A 3D cover placeholder, an advance-praise row (marked as placeholder), retailer links, format and category, author cards with photo slots, events, book-club and press kits.',
+      who: 'Book buyers, booksellers, agents, editors, press. Anyone arriving from a review or an ad.',
+      risk: 'Conventional by design. Needs real cover art, real blurbs and a real publication date before it looks finished. On its own it undersells the archive.' },
+    { file: '10-documentary.html', name: 'Documentary', round: 2,
+      vibe: 'A PBS companion site. A slow push into an old photograph, then the story in chapters.',
+      why: 'Modelled on documentary companion sites. A full-screen hero on the 1905 In Dahomey tour photograph with a slow Ken Burns move, a sepia-to-parchment palette, Spectral and Karla. Five dated chapters along a spine, a phonograph player for the 1900 Sousa recording, a single large quote.',
+      who: 'General readers arriving cold. Event audiences. The most emotional first impression of the ten.',
+      risk: 'Motion and sepia can feel like a template if overused. Chapters must stay accurate to the book. Heavier page than the others.' },
   ];
   const tabs = document.getElementById('tabs');
   const frame = document.getElementById('frame');
   const note = document.getElementById('note');
   const open = document.getElementById('open');
+  const toggle = document.getElementById('toggle');
+  const think = document.getElementById('think');
   let current = 0;
 
   designs.forEach((d, i) => {
+    if (i > 0 && d.round !== designs[i - 1].round) { const s = document.createElement('span'); s.className = 'sep'; s.title = 'Round 2: audience and gold standard'; tabs.appendChild(s); }
     const b = document.createElement('button');
-    b.role = 'tab';
-    b.innerHTML = `<b>${i + 1}</b>${d.name}`;
+    b.setAttribute('role', 'tab');
+    b.innerHTML = `<b>${(i + 1) % 10}</b>${d.name}`;
     b.addEventListener('click', () => show(i));
     tabs.appendChild(b);
   });
@@ -74,25 +197,48 @@
   function show(i) {
     current = (i + designs.length) % designs.length;
     const d = designs[current];
-    [...tabs.children].forEach((b, j) => b.setAttribute('aria-selected', j === current));
+    [...tabs.querySelectorAll('button')].forEach((b, j) => b.setAttribute('aria-selected', j === current));
     frame.src = d.file;
     open.href = d.file;
-    note.innerHTML = `${current + 1} of ${designs.length} · ${d.note} &nbsp; <kbd>←</kbd> <kbd>→</kbd> to switch`;
+    document.getElementById('nNum').textContent = `${current + 1} of ${designs.length}`;
+    document.getElementById('nName').textContent = d.name;
+    document.getElementById('nVibe').innerHTML = `· ${d.vibe}`;
+    document.getElementById('bVibe').textContent = d.vibe;
+    document.getElementById('bWhy').textContent = d.why;
+    document.getElementById('bWho').textContent = d.who;
+    document.getElementById('bRisk').textContent = d.risk;
     history.replaceState(null, '', '#' + d.file.replace('.html', ''));
   }
 
-  document.querySelectorAll('.right button').forEach((b) => b.addEventListener('click', () => {
-    document.querySelectorAll('.right button').forEach((x) => x.setAttribute('aria-pressed', x === b));
+  function setNotes(openState) {
+    note.classList.toggle('collapsed', !openState);
+    toggle.textContent = openState ? 'Hide notes' : 'Show notes';
+    toggle.setAttribute('aria-expanded', openState);
+    try { localStorage.setItem('dc-notes', openState ? 'open' : 'closed'); } catch (_) {}
+  }
+  toggle.addEventListener('click', () => setNotes(note.classList.contains('collapsed')));
+  let notesOpen = true;
+  try { notesOpen = localStorage.getItem('dc-notes') !== 'closed'; } catch (_) {}
+  setNotes(notesOpen);
+
+  document.getElementById('thinkBtn').addEventListener('click', () => think.classList.toggle('open'));
+  document.getElementById('thinkClose').addEventListener('click', () => think.classList.remove('open'));
+
+  document.querySelectorAll('.right button[data-w]').forEach((b) => b.addEventListener('click', () => {
+    document.querySelectorAll('.right button[data-w]').forEach((x) => x.setAttribute('aria-pressed', x === b));
     frame.className = b.dataset.w === 'desktop' ? '' : b.dataset.w;
   }));
 
-  document.addEventListener('keydown', (e) => {
+  function onKey(e) {
     if (e.key === 'ArrowRight') show(current + 1);
-    if (e.key === 'ArrowLeft') show(current - 1);
-    if (/^[1-6]$/.test(e.key)) show(Number(e.key) - 1);
-  });
+    else if (e.key === 'ArrowLeft') show(current - 1);
+    else if (e.key === 'Escape') think.classList.remove('open');
+    else if (e.key === 'n' || e.key === 'N') setNotes(note.classList.contains('collapsed'));
+    else if (/^[0-9]$/.test(e.key)) show(e.key === '0' ? 9 : Number(e.key) - 1);
+  }
+  document.addEventListener('keydown', onKey);
   frame.addEventListener('load', () => {
-    try { frame.contentDocument.addEventListener('keydown', (e) => document.dispatchEvent(new KeyboardEvent('keydown', { key: e.key }))); } catch (_) {}
+    try { frame.contentDocument.addEventListener('keydown', (e) => { if (e.target.tagName !== 'INPUT') onKey(e); }); } catch (_) {}
   });
 
   const start = designs.findIndex((d) => '#' + d.file.replace('.html', '') === location.hash);

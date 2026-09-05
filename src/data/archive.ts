@@ -37,6 +37,8 @@ export interface ArchiveItem {
   audio?: string;        // path under /public
   label?: string;        // record label and catalog number, for recordings
   performers?: string;   // who is heard, for recordings
+  chapter?: string;      // where the book tells this part of the story
+  story?: string[];      // how the recording fits the book and the two lives; shown expandable on the item page
   people: string[];
   description: string;   // one or two sentences for the tile and the page
   context?: string;      // longer note on the item page
@@ -296,6 +298,12 @@ export const archive: ArchiveItem[] = [
     people: ['Will Marion Cook', 'Paul Laurence Dunbar'],
     description: 'A 1902 recording of the In Dahomey number, music by Cook and words by Dunbar.',
     context: 'The earliest recording of Cook\'s music in the archive. Sound recordings made before 1923 entered the public domain in the United States in 2022.',
+    chapter: 'Chapters 11–12, Crossing to Freedom and A Royal Fairy Tale',
+    story: [
+      '"On Emancipation Day" was the finale of In Dahomey, the show that took Williams and Walker, Cook\'s music, and Dunbar\'s words to Broadway in February 1903 and then to London. This recording was made while the show was still on its first American tour.',
+      'Abbie was in the company that sailed for England in the spring of 1903, with a son born that year and a daughter of three. The London run ended in a command performance at Buckingham Palace, the summer the book calls a royal fairy tale.',
+      "The song's title is the point. A show about Black Americans, written and performed by Black Americans, closed every night with an anthem to the end of slavery, sung to audiences who had come for a cakewalk.",
+    ],
     source: 'Via Wikimedia Commons',
     sourceUrl: 'https://commons.wikimedia.org/wiki/File:Willam_Marion_Cook_-_On_Emancipation_Day_(1902).ogg',
     rights: 'Public domain.',
@@ -313,6 +321,12 @@ export const archive: ArchiveItem[] = [
     people: ['Will Marion Cook', 'Paul Laurence Dunbar'],
     description: 'A Clorindy number, played by the most famous band in America two years after the show opened on the Casino roof.',
     context: 'Cook and Dunbar wrote this for Clorindy in 1898. That Sousa\'s Band recorded it shows how far the show\'s songs travelled. This is the closest thing we have to the sound of the summer Abbie auditioned. A seven-inch record, so it runs under a minute and a half.',
+    chapter: 'Prologue, The Audition, and Chapter 9, A Rocky Start',
+    story: [
+      'This is a Clorindy song. Cook and Dunbar wrote it for the show that opened on the Casino Theatre roof in the summer of 1898, the show Abbie climbs the stairs to audition for in the prologue. If you want to know what the band on that roof sounded like, this is the nearest thing that survives.',
+      "By the time Sousa's Band recorded it, in October 1900, Abbie and Will Marion had been married about a year and their daughter Marion had just been born. Cook was writing for Williams and Walker and pushing toward the show that would become In Dahomey.",
+      "Sousa's Band was the best-known ensemble in the country, and Arthur Pryor, who conducted the session, was its star trombonist. A Black composer's cakewalk song being taken up by Sousa's musicians tells you how far the Clorindy tunes had travelled in two years. The lyrics, like most of Dunbar's dialect verse for the stage, sit uneasily today; the band plays it without them.",
+    ],
     source: 'Library of Congress, National Jukebox',
     sourceUrl: 'https://www.loc.gov/item/jukebox-1762/',
     rights: 'Public domain. Published before 1923.',
@@ -331,6 +345,12 @@ export const archive: ArchiveItem[] = [
     people: ['Will Marion Cook', 'Paul Laurence Dunbar'],
     description: 'The song Cook plays for Abbie at the audition, on a five-and-a-half-inch Little Wonder disc from a minstrel medley. Performer unidentified.',
     context: 'Little Wonder discs were sold for ten cents between 1914 and 1923, and the label did not name its performers. The disc is worn and the other side could not be transferred. This is the only recording of the song we have found so far, and it comes from a minstrel-show record, which is worth knowing before you press play.',
+    chapter: 'Prologue, The Audition',
+    story: [
+      'This is the song Cook sits down and plays for Abbie at her audition, and the one whose lyrics make her recoil. "Warm coons a-prancing, swell coons a-dancing." She tells him decent colored girls do not sing coon songs; he tells her it is not a coon song but the most innovative music in America. Both of them are partly right, and that argument runs through the whole book.',
+      'The recording is not from 1898. Little Wonder sold five-and-a-half-inch discs for a dime between 1914 and 1923 and never named its performers. This one is a minstrel-show medley, which means the song is being sung here in exactly the tradition Abbie objected to, by singers who were very likely white men in blackface. We include it because it is the only recording of the song we have found, and because hearing it makes the argument on the roof concrete.',
+      'By the time this disc was pressed, Cook had left the cakewalk behind for concert music and would soon take an orchestra to Europe. Abbie was a leading actress with the Lafayette Players in Harlem. The song had outlived the moment that produced it.',
+    ],
     source: 'Internet Archive, Great 78 Project, digitized by George Blood L.P.',
     sourceUrl: 'https://archive.org/details/78_darktown-is-out-tonight_gbia0305058a',
     rights: 'Public domain. Published before 1923.',
@@ -348,6 +368,12 @@ export const archive: ArchiveItem[] = [
     people: ['Will Marion Cook'],
     description: 'Cook\'s best-known song, written for In Dahomey, sung by Victor\'s house quartet.',
     context: '"Swing Along" was the opening chorus of In Dahomey in 1903 and became a concert standard in Cook\'s own choral arrangement. It is the song Marva Griffin Carter named her biography after.',
+    chapter: 'Chapters 11 and 16, Crossing to Freedom and "On the Cusp of Something New"',
+    story: [
+      '"Swing Along" opened In Dahomey in 1903. Cook later rewrote it as a concert piece for chorus, and in that form it became the best-known thing he ever wrote, sung by Black college choirs for decades and chosen by Marva Griffin Carter as the title of her biography of him.',
+      "The Clef Club orchestra sang it at Carnegie Hall in May 1912, the first concert of Black music in that hall. This recording came three years later from Victor's Orpheus Quartet, four white studio singers, which is how most Americans would have heard it on a record.",
+      'In 1915 Abbie joined the Lafayette Players, the Harlem stock company, and became one of its leading actresses. Cook was drilling his own choir, the Afro-American Folk Song Singers, in this and the other concert pieces on this page. They were living separate lives in the same city, both of them at work.',
+    ],
     source: 'Library of Congress, National Jukebox',
     sourceUrl: 'https://www.loc.gov/item/jukebox-187828/',
     rights: 'Public domain. Published before 1923.',
@@ -366,6 +392,12 @@ export const archive: ArchiveItem[] = [
     people: ['Will Marion Cook', 'George Walker'],
     description: 'George Walker\'s signature number from Bandanna Land, recorded the year the show opened by Victor\'s most popular singer.',
     context: 'Music by Cook, words by Alex Rogers. Walker himself never recorded it. Billy Murray was white; like most hits of the day, the song reached record buyers through the label\'s regular singers rather than the Black artists who made it famous on stage. The sheet-music cover is also in the archive.',
+    chapter: 'Chapters 14–15, The Crazy Genius and The Mockingbird Flies the Coop',
+    story: [
+      '"Bon Bon Buddy, the Chocolate Drop" was George Walker\'s number in Bandanna Land, the last of the Williams and Walker shows, which opened in February 1908. Cook wrote the music, Alex Rogers the words, and the song became Walker\'s signature. He never recorded it; Victor gave it to Billy Murray two months after the opening.',
+      'For Abbie and Will Marion, 1908 is the year the marriage came apart. Sources put the divorce anywhere between 1906 and 1908; the book tells what happened. Cook\'s professional life was at a peak while his home life collapsed, a pattern the chapter title "The Crazy Genius" points to.',
+      "Walker fell ill on tour in 1909 and died in 1911. Bandanna Land was the end of the partnership that had carried Cook's music to Broadway and London, and this cheerful song is its high-water mark. The sheet-music cover is in the archive too.",
+    ],
     source: 'Library of Congress, National Jukebox',
     sourceUrl: 'https://www.loc.gov/item/jukebox-424978/',
     rights: 'Public domain. Published before 1923.',
@@ -382,6 +414,12 @@ export const archive: ArchiveItem[] = [
     label: 'Victor 35085, recorded September 28, 1909',
     people: ['Will Marion Cook'],
     description: 'A ballad from Bandanna Land, music by Cook and words by Alex Rogers.',
+    chapter: 'Chapters 14–15, The Crazy Genius and The Mockingbird Flies the Coop',
+    story: [
+      "A ballad from Bandanna Land, recorded a year and a half after the show opened. Alex Rogers, who wrote the words, was Cook's steadiest collaborator after Dunbar's death in 1906, and this is one of their gentler songs.",
+      "By the autumn of 1909 the marriage was over. Abbie was building a career of her own on concert stages in Europe and America, and Cook was about to throw himself into the Clef Club, the Black musicians' organization Jim Europe founded in 1910.",
+      "The Haydn Quartet was Victor's house vocal group. Like nearly every recording of Cook's music in these years, it was made by white studio singers; the Black artists who introduced the songs on stage were rarely invited into the recording horn.",
+    ],
     source: 'Library of Congress, National Jukebox',
     sourceUrl: 'https://www.loc.gov/item/jukebox-127843/',
     rights: 'Public domain. Published before 1923.',
@@ -399,6 +437,12 @@ export const archive: ArchiveItem[] = [
     people: ['Will Marion Cook'],
     description: 'Cook\'s setting of Alex Rogers\'s dialect poem, sung by a Black vocal group from Harlem.',
     context: 'The Right Quintette was one of the few Black ensembles recording in the 1910s. This is Cook\'s music performed by the kind of singers he wrote it for, recorded on Christmas Eve 1915.',
+    chapter: 'Chapter 16, "On the Cusp of Something New"',
+    story: [
+      '"Rain Song" is Cook\'s setting of a dialect poem by Alex Rogers, published by Schirmer in 1912 as part of a set of concert pieces. It is the music Cook wanted to be known for: art songs built on Black speech and Black melody, the thing Dvořák had told him to write twenty years before.',
+      "The Right Quintette was a Black vocal group from Harlem, one of very few recording in the 1910s. This session on Christmas Eve 1915 is Cook's music sung by the singers he wrote it for, which makes it rare on this page.",
+      'That year Cook was rehearsing his Afro-American Folk Song Singers in the same repertoire and Abbie was on stage with the Lafayette Players a few blocks away. The Harlem the book calls "on the cusp of something new" was taking shape around both of them.',
+    ],
     source: 'Library of Congress, National Jukebox',
     sourceUrl: 'https://www.loc.gov/item/jukebox-652958/',
     rights: 'Public domain. Published before 1923.',
@@ -416,6 +460,12 @@ export const archive: ArchiveItem[] = [
     label: 'Columbia, recorded December 24, 1915',
     people: ['Will Marion Cook'],
     description: 'Cook\'s concert setting of an Alex Rogers sermon-poem, recorded the same day as "Rain Song."',
+    chapter: 'Chapter 16, "On the Cusp of Something New"',
+    story: [
+      'Cook subtitled "Exhortation" a Negro sermon. It sets a preacher\'s call, in Alex Rogers\'s words, as a concert song, and it was one of the pieces his choir performed to show that Black vernacular could carry serious music.',
+      'The Right Quintette recorded it in the same Christmas Eve session as "Rain Song." Compare it with the 1919 recording by Jim Europe\'s singers, also on this site, to hear how differently two Black ensembles treated the same piece four years apart.',
+      "Cook was forty-six and, by most accounts, difficult, brilliant, and short of money. The book's chapter on these years takes its title from something he was said to feel about the music: that it was on the cusp of something new.",
+    ],
     source: 'Library of Congress, National Jukebox',
     sourceUrl: 'https://www.loc.gov/item/jukebox-652955/',
     rights: 'Public domain. Published before 1923.',
@@ -433,6 +483,12 @@ export const archive: ArchiveItem[] = [
     people: ['Will Marion Cook', 'James Reese Europe'],
     description: 'Cook\'s "Exhortation" recorded by James Reese Europe\'s singers two months before Europe was killed.',
     context: 'Europe and Cook were the two poles of Black concert music in 1910s New York; Europe led the Clef Club orchestra Cook wrote for, then the 369th Infantry "Hellfighters" band in France. He was stabbed by one of his drummers on May 9, 1919. The other side of this disc is Noble Sissle singing "Little David, Play on Your Harp."',
+    chapter: 'Chapters 18–19, Making the World "Safe" for Democracy and The Expatriates',
+    story: [
+      'James Reese Europe and Will Marion Cook were the two poles of Black concert music in New York. Europe founded the Clef Club; Cook wrote for it and conducted it. Europe led the Hellfighters band that brought ragtime to France in 1918; Cook was assembling the orchestra that would bring it to England in 1919.',
+      'This recording was made on March 3, 1919, weeks after the Hellfighters marched up Fifth Avenue. On May 9, Europe was stabbed by one of his drummers during a concert in Boston and died that night. He was thirty-nine. The Serenaders here were his singers, and Noble Sissle is on the other side of the disc.',
+      'Cook sailed for England with the Southern Syncopated Orchestra that June, taking a young Sidney Bechet with him. The book\'s chapter on those years is called "The Expatriates." Hearing Europe\'s group sing Cook\'s sermon-song two months before the end is as close as this archive comes to the moment the older generation handed off to the younger.',
+    ],
     source: 'Internet Archive, Great 78 Project, digitized by George Blood L.P.',
     sourceUrl: 'https://archive.org/details/78_exhortation_creighton-thompson-lieut-jim-europes-singing-serenaders-will-m-cook_gbia0298579b',
     rights: 'Public domain. Published before 1923.',
@@ -451,6 +507,12 @@ export const archive: ArchiveItem[] = [
     people: ['Will Marion Cook', 'Noble Sissle'],
     description: 'Cook\'s 1904 song sung by Noble Sissle, three years before he and Eubie Blake wrote Shuffle Along.',
     context: 'Words by Cecil Mack. Sissle was a lieutenant in Jim Europe\'s Hellfighters band when he recorded this.',
+    chapter: 'Chapter 18, Making the World "Safe" for Democracy',
+    story: [
+      '"Mandy Lou" is a 1904 song with words by Cecil Mack, written around the time of The Southerners. Fourteen years later Noble Sissle recorded it for Pathé. Sissle was a lieutenant in Jim Europe\'s 369th Infantry band, the Harlem Hellfighters, and had spent the first part of 1918 in France with them.',
+      "For Cook the war years meant organizing. He put together the New York Syncopated Orchestra in 1918, the group that became the Southern Syncopated Orchestra and sailed for England the next year. Sissle would go on to write Shuffle Along with Eubie Blake in 1921, the show that reopened Broadway to Black musicals after a decade's absence.",
+      "So this record joins two generations: Cook's song from the Williams and Walker era, sung by the man who would carry the Black musical into the 1920s. Abbie, meanwhile, was acting in Harlem and would soon tour with Cook's orchestra.",
+    ],
     source: 'Internet Archive, Great 78 Project, digitized by George Blood L.P.',
     sourceUrl: 'https://archive.org/details/78_mandy-lou_noble-sissle-cook_gbia0309659b',
     rights: 'Public domain. Published before 1923.',
@@ -468,6 +530,12 @@ export const archive: ArchiveItem[] = [
     people: ['Will Marion Cook', 'Joe Jordan'],
     description: 'The song that made Fanny Brice a star in the Ziegfeld Follies of 1910. Cook wrote the words, Joe Jordan the music.',
     context: 'Collins was a white singer who specialized in dialect numbers; the recording reflects the conventions of its day.',
+    chapter: 'Chapter 16, "On the Cusp of Something New"',
+    story: [
+      'Cook wrote the words to this one, not the music. Joe Jordan composed it, and it was the song that made a nineteen-year-old Fanny Brice a star in the Ziegfeld Follies of 1910. Brice sang it in dialect and brought the house down; Ziegfeld moved her up the bill the next night.',
+      "The story of a Black composer and a Black lyricist writing the breakout number for a white star in the biggest revue on Broadway is very much the story of these years, when Cook's music was everywhere and his name was on little of it. This recording, by Arthur Collins, a white specialist in dialect songs, was made on the last day of 1910.",
+      'Abbie spent much of this period abroad. She studied voice in Paris and sang in concert across Europe, the years the book gathers under "The Survivor."',
+    ],
     source: 'Library of Congress, National Jukebox',
     sourceUrl: 'https://www.loc.gov/item/jukebox-733950/',
     rights: 'Public domain. Published before 1923.',
@@ -484,6 +552,12 @@ export const archive: ArchiveItem[] = [
     label: 'Victor 4434, recorded May 4, 1905',
     people: ['Will Marion Cook'],
     description: 'From The Southerners (1904), the first Broadway show with a racially mixed cast. Music by Cook, words by Richard Grant.',
+    chapter: "Chapter 13, Abbie's Resolve",
+    story: [
+      "This comes from The Southerners, which opened in May 1904 and is remembered as the first Broadway show with a racially mixed cast, white principals and a Black chorus. Cook wrote the music. The book's account of these years will say what part Abbie played; the record says she was singing professionally and raising two small children at the same time.",
+      "The recording, by Victor's most-recorded singer with the Haydn Quartet behind him, was made in May 1905. That same year Cook organized the Memphis Students, the syncopated ensemble that played Proctor's Theatre and then Europe with Abbie as its featured singer. It was the last big thing they did together.",
+      "Billy Murray was white. The song is a dialect number, and the performance follows the conventions of the day. It is here because it is Cook's music from a show that mattered, sung by the voice that most Americans of 1905 would actually have heard it in.",
+    ],
     source: 'Library of Congress, National Jukebox',
     sourceUrl: 'https://www.loc.gov/item/jukebox-247763/',
     rights: 'Public domain. Published before 1923.',

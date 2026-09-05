@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Publisher · The Diva and the Maestro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,300;1,7..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" />
+<style>
+  :root {
+    --white: #FFFFFF;
+    --off: #F7F4EE;
+    --forest: #1E3B2D;
+    --forest-2: #163024;
+    --gold: #C9A054;
+    --ink: #1A1A1A;
+    --ink-2: #444;
+    --grey: #767676;
+    --rule: #E6E2DA;
+    --serif: "Literata", "Georgia", serif;
+    --sans: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--white); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.6; }
+  img { max-width: 100%; display: block; height: auto; }
+  a { color: var(--forest); }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 44px); }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; line-height: 1.1; }
+
+  .topbar { background: var(--forest); color: #fff; font-size: 13px; text-align: center; padding: 8px 0; }
+  .topbar b { color: var(--gold); font-weight: 600; }
+  header { border-bottom: 1px solid var(--rule); background: var(--white); position: sticky; top: 0; z-index: 5; }
+  header .row { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 14px 0; flex-wrap: wrap; }
+  .brand { font-family: var(--serif); font-size: 21px; color: var(--ink); text-decoration: none; }
+  header nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 22px; align-items: center; }
+  header nav a { font-size: 14px; font-weight: 500; color: var(--ink-2); text-decoration: none; }
+  header nav a:hover { color: var(--forest); }
+  header nav a.cta { background: var(--forest); color: #fff; padding: 9px 16px; border-radius: 4px; font-weight: 600; }
+
+  .hero { background: var(--off); padding: clamp(40px, 6vw, 80px) 0; }
+  .hero .grid { display: grid; grid-template-columns: 380px 1fr; gap: clamp(32px, 6vw, 88px); align-items: center; }
+  .book { perspective: 1400px; }
+  .cover { position: relative; width: 100%; max-width: 380px; aspect-ratio: 2 / 3; background: var(--forest); color: #fff; transform: rotateY(-14deg); transform-origin: left; box-shadow: 18px 24px 50px -18px rgba(0,0,0,.55), inset 6px 0 12px -8px rgba(255,255,255,.35); overflow: hidden; }
+  .cover::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px; background: linear-gradient(90deg, rgba(0,0,0,.35), transparent); z-index: 2; }
+  .cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; filter: grayscale(1) contrast(1.15); mix-blend-mode: screen; opacity: .55; }
+  .cover .t { position: absolute; left: 28px; right: 28px; top: 34px; font-family: var(--serif); font-size: 42px; line-height: 1; font-weight: 400; }
+  .cover .t em { font-style: italic; font-weight: 300; color: var(--gold); }
+  .cover .s { position: absolute; left: 28px; right: 28px; bottom: 78px; font-family: var(--serif); font-style: italic; font-size: 15px; line-height: 1.3; font-weight: 300; }
+  .cover .a { position: absolute; left: 28px; right: 28px; bottom: 30px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; color: var(--gold); }
+  .cover .note { position: absolute; right: 12px; top: 12px; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; background: rgba(255,255,255,.12); padding: 3px 7px; border-radius: 3px; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--forest); margin: 0 0 14px; }
+  .hero h1 { font-size: clamp(42px, 5.6vw, 72px); letter-spacing: -.015em; }
+  .hero h1 em { font-style: italic; font-weight: 300; }
+  .hero .sub { font-family: var(--serif); font-size: clamp(19px, 2.1vw, 24px); font-weight: 300; line-height: 1.35; margin: 16px 0 6px; max-width: 34ch; }
+  .hero .by { font-size: 15px; color: var(--ink-2); margin: 0 0 22px; }
+  .hero .by b { font-weight: 600; color: var(--ink); }
+  .hero .dek { max-width: 56ch; margin: 0 0 24px; color: var(--ink-2); }
+  .buy { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .buy .btn { padding: 13px 22px; border-radius: 4px; background: var(--forest); color: #fff; font-weight: 600; font-size: 15px; text-decoration: none; }
+  .buy .btn:hover { background: var(--forest-2); }
+  .buy .btn.ghost { background: transparent; color: var(--forest); border: 1px solid var(--forest); }
+  .retailers { margin-top: 18px; font-size: 13px; color: var(--grey); }
+  .retailers a { color: var(--ink-2); margin-right: 14px; text-decoration: none; border-bottom: 1px solid var(--rule); }
+  .retailers a:hover { color: var(--forest); border-color: var(--forest); }
+  .meta { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 22px; font-size: 13px; color: var(--grey); }
+  .meta b { display: block; color: var(--ink); font-weight: 600; }
+
+  .praise { padding: clamp(40px, 6vw, 72px) 0; border-bottom: 1px solid var(--rule); }
+  .praise .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .praise blockquote { margin: 0; font-family: var(--serif); font-size: 19px; line-height: 1.45; font-weight: 300; }
+  .praise blockquote::before { content: "“"; color: var(--gold); font-size: 2.4em; line-height: 0; vertical-align: -.35em; margin-right: 2px; }
+  .praise cite { display: block; font-style: normal; font-size: 13px; color: var(--grey); margin-top: 12px; }
+  .placeholder { display: inline-block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--grey); border: 1px dashed var(--rule); padding: 2px 6px; border-radius: 3px; margin-bottom: 10px; }
+
+  section.blk { padding: clamp(48px, 7vw, 96px) 0; }
+  section.blk + section.blk { border-top: 1px solid var(--rule); }
+  .two { display: grid; grid-template-columns: 1fr 1.3fr; gap: clamp(28px, 5vw, 72px); align-items: start; }
+  h2 { font-size: clamp(32px, 4vw, 48px); letter-spacing: -.01em; }
+  h2 em { font-style: italic; font-weight: 300; }
+  .big { font-family: var(--serif); font-size: clamp(20px, 2.2vw, 25px); line-height: 1.45; font-weight: 300; margin: 0 0 18px; }
+  .link { font-weight: 600; text-decoration: none; color: var(--forest); }
+  .link::after { content: " →"; }
+
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .pair article { display: grid; grid-template-columns: 140px 1fr; gap: 22px; align-items: start; }
+  .pair img { width: 100%; }
+  .pair h3 { font-size: 28px; }
+  .pair .dates { font-size: 13px; color: var(--grey); margin: 4px 0 10px; }
+  .pair p { margin: 0 0 .7em; font-size: 15.5px; color: var(--ink-2); }
+
+  .excerpt { background: var(--forest); color: #fff; }
+  .excerpt .eyebrow { color: var(--gold); }
+  .excerpt h2 { color: #fff; }
+  .excerpt blockquote { margin: 0; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(26px, 3.4vw, 40px); line-height: 1.25; }
+  .excerpt p { color: rgba(255,255,255,.85); }
+  .excerpt .btn { display: inline-block; padding: 12px 20px; border: 1px solid var(--gold); color: var(--gold); border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 14px; }
+  .excerpt .btn:hover { background: var(--gold); color: var(--forest); }
+
+  .authors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .authors .ph { aspect-ratio: 1; border-radius: 50%; background: var(--off); border: 1px dashed var(--rule); width: 120px; display: grid; place-items: center; font-size: 11px; color: var(--grey); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 16px; }
+  .authors h3 { font-size: 24px; }
+  .authors p { margin: 6px 0 0; color: var(--ink-2); font-size: 15.5px; }
+
+  .events { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .event { border: 1px solid var(--rule); border-radius: 6px; padding: 18px; }
+  .event .d { font-family: var(--serif); font-size: 26px; font-weight: 300; }
+  .event b { display: block; font-size: 16px; margin: 6px 0 2px; }
+  .event span { font-size: 13.5px; color: var(--grey); }
+
+  .kits { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 20px; }
+  .kit { border: 1px solid var(--rule); border-radius: 6px; padding: 14px 18px; text-decoration: none; color: var(--ink); font-weight: 500; font-size: 15px; }
+  .kit:hover { border-color: var(--forest); }
+
+  footer { background: var(--off); border-top: 1px solid var(--rule); padding: 56px 0 36px; }
+  footer .cols { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 40px; }
+  footer h3 { font-size: 24px; margin-bottom: 8px; }
+  footer p { font-size: 14.5px; color: var(--ink-2); margin: 0 0 8px; }
+  footer form { display: flex; gap: 8px; }
+  footer input { flex: 1; min-width: 0; padding: 11px 12px; border: 1px solid #C9C4B8; border-radius: 4px; font: inherit; font-size: 14px; background: #fff; }
+  footer button { padding: 11px 16px; border: 0; border-radius: 4px; background: var(--forest); color: #fff; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+  footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  footer ul a { text-decoration: none; color: var(--ink-2); font-size: 14.5px; }
+  footer small { display: block; margin-top: 32px; font-size: 12.5px; color: var(--grey); }
+
+  @media (max-width: 860px) {
+    .hero .grid, .two, .pair, .praise .grid, footer .cols, .events { grid-template-columns: 1fr; }
+    .authors { grid-template-columns: 1fr; }
+    .book { max-width: 280px; }
+    .cover .t { font-size: 32px; }
+    header .row { justify-content: center; text-align: center; }
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">Coming from <b>[publisher]</b> · Publication date to be announced · <b>Sign up</b> to hear first</div>
+  <header>
+    <div class="wrap row">
+      <a class="brand" href="#">The Diva and the Maestro</a>
+      <nav><ul>
+        <li><a href="#">The Book</a></li><li><a href="#">The Box</a></li><li><a href="#">The Diva</a></li><li><a href="#">The Maestro</a></li><li><a href="#">Timeline</a></li><li><a href="#">Archive</a></li><li><a href="#">Authors</a></li><li><a href="#">Events</a></li><li><a class="cta" href="#">Pre-order</a></li>
+      </ul></nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap grid">
+      <div class="book">
+        <div class="cover">
+          <span class="note">Cover placeholder</span>
+          <img src="../src/assets/archive/abbie-mitchell-portrait.jpg" alt="" />
+          <div class="t">The Diva <em>and</em> the Maestro</div>
+          <div class="s">The Life and Times of Abbie Mitchell and Will Marion Cook</div>
+          <div class="a">Cook · Bush · Daniels</div>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow">A novel based on a true story</p>
+        <h1>The Diva <em>and</em> the Maestro</h1>
+        <p class="sub">The Life and Times of Abbie Mitchell and Will Marion Cook</p>
+        <p class="by">By <b>Jacques Cook</b>, <b>Antoinette Cook Bush</b>, and <b>Penny Daniels</b></p>
+        <p class="dek">In the summer of 1898, a fourteen-year-old soprano climbed to the roof of the Casino Theatre to audition for the most arrogant man on Broadway. He hired her for thirty dollars a week. What followed was a marriage, a musical revolution, and a story their own family did not know until they found it in a box.</p>
+        <div class="buy"><a class="btn" href="#">Pre-order</a><a class="btn ghost" href="#">Read an excerpt</a></div>
+        <p class="retailers">Also at <a href="#">Bookshop.org</a><a href="#">Amazon</a><a href="#">Barnes &amp; Noble</a><a href="#">Apple Books</a><a href="#">Your local bookstore</a></p>
+        <div class="meta"><div><b>Format</b>Hardcover · Ebook · Audio</div><div><b>Category</b>Historical fiction · Biography</div><div><b>Pages</b>To be announced</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="praise">
+    <div class="wrap">
+      <span class="placeholder">Advance praise · placeholder layout, quotes to come</span>
+      <div class="grid">
+        <blockquote>A love story and a history of American music at once, told by the family who lived downstream of it.<cite>— Reviewer name, publication</cite></blockquote>
+        <blockquote>Abbie Mitchell and Will Marion Cook finally get the book they deserved a century ago.<cite>— Reviewer name, publication</cite></blockquote>
+        <blockquote>Reads like a novel because it is one, and lands like history because it is that too.<cite>— Reviewer name, publication</cite></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <div class="wrap two">
+      <div><p class="eyebrow">About the book</p><h2>It started with a <em>cardboard box.</em></h2></div>
+      <div>
+        <p class="big">After his father died, Jacques Cook found a large box in the house, stuffed with hundreds of pages of prose. The pages told the story of his grandparents: two Black artists, one generation out of slavery, who reached the heights of American music while Jim Crow tried to stop them at every turn.</p>
+        <p>Will Marion died before Jacques was born. Abbie died when he was a boy. The box gave them back to him, and this book gives them to everyone else.</p>
+        <a class="link" href="#">How the book came to be</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <div class="wrap">
+      <p class="eyebrow">The people</p>
+      <h2 style="margin-bottom:28px">Two lives, one story.</h2>
+      <div class="pair">
+        <article>
+          <img src="../src/assets/archive/abbie-mitchell-portrait.jpg" alt="" />
+          <div><h3>Abbie Mitchell</h3><p class="dates">The Diva · 1884–1960</p><p>Born to a Jewish father and a Black mother, she walked onto Broadway at fourteen and sang for a king at nineteen. Decades later she was the first voice to sing "Summertime" in <em>Porgy and Bess</em>.</p><a class="link" href="#">Her story</a></div>
+        </article>
+        <article>
+          <img src="../src/assets/archive/will-marion-cook-portrait.jpg" alt="" />
+          <div><h3>Will Marion Cook</h3><p class="dates">The Maestro · 1869–1944</p><p>A violin prodigy trained in Berlin and by Dvořák, he wrote the first all-Black Broadway musical, took Black American music to Europe, and taught a young Duke Ellington.</p><a class="link" href="#">His story</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk excerpt">
+    <div class="wrap two">
+      <div>
+        <p class="eyebrow">Read an excerpt</p>
+        <h2>The Audition.<br />July 12, 1898.</h2>
+        <p style="margin-top:18px;max-width:44ch">Abbie Mitchell has just lost her father and her grandmother. Her aunt has spent her last pennies on a dress. And the man at the piano is about to change her life.</p>
+        <a class="btn" href="#">Read the prologue</a>
+      </div>
+      <blockquote>"You have a glorious voice, little girl, plenty of fire, but you can't sing a damn thing!"</blockquote>
+    </div>
+  </section>
+
+  <section class="blk">
+    <div class="wrap">
+      <p class="eyebrow">The authors</p>
+      <div class="authors">
+        <div><div class="ph">Photo</div><h3>Jacques Cook</h3><p>Grandson of Abbie and Will Marion. Found the box.</p></div>
+        <div><div class="ph">Photo</div><h3>Antoinette Cook Bush</h3><p>Great-granddaughter. Jacques's niece.</p></div>
+        <div><div class="ph">Photo</div><h3>Penny Daniels</h3><p>Writer and family friend.</p></div>
+      </div>
+      <div class="kits"><a class="kit" href="#">Book club guide</a><a class="kit" href="#">Press kit</a><a class="kit" href="#">Invite the authors</a></div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <div class="wrap">
+      <p class="eyebrow">Events</p>
+      <h2 style="margin-bottom:24px">Readings and conversations.</h2>
+      <div class="events">
+        <div class="event"><div class="d">TBA</div><b>Launch reading</b><span>City, venue · details to come</span></div>
+        <div class="event"><div class="d">TBA</div><b>In conversation</b><span>City, venue · details to come</span></div>
+        <div class="event"><div class="d">TBA</div><b>Listening evening: Cook on 78s</b><span>City, venue · details to come</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap cols">
+      <div>
+        <h3>The Diva <em style="font-weight:300">and</em> the Maestro</h3>
+        <p>The Life and Times of Abbie Mitchell and Will Marion Cook. A novel based on a true story, by Jacques Cook, Antoinette Cook Bush, and Penny Daniels.</p>
+      </div>
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px">Hear about it first</p>
+        <form onsubmit="return false"><input type="email" placeholder="Your email" /><button>Sign up</button></form>
+        <p style="margin-top:8px">Publication news, readings, and recordings from the archive.</p>
+      </div>
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px">Pages</p>
+        <ul><li><a href="#">The Book</a></li><li><a href="#">Read the prologue</a></li><li><a href="#">Archive</a></li><li><a href="#">Events &amp; News</a></li><li><a href="#">Contact the authors</a></li></ul>
+      </div>
+    </div>
+    <div class="wrap"><small>© 2026 Jacques Cook, Antoinette Cook Bush, and Penny Daniels. Archive images are public domain or credited to their holders on each item's page.</small></div>
+  </footer>
+</body>
+</html>

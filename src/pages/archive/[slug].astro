@@ -26,6 +26,16 @@ const more = sorted.filter((i) => i.slug !== item.slug && (i.people.some((p) => 
           <p class="hint">Acoustic recordings were made into a horn, without microphones. Expect surface noise; the music is all there.</p>
         </div>
       )}
+      {item.story && (
+        <details class="story">
+          <summary><span>How this recording fits the story</span><i aria-hidden="true"></i></summary>
+          <div class="story-body">
+            {item.chapter && <p class="ch"><b>In the book:</b> {item.chapter}</p>}
+            {item.story.map((para) => <p>{para}</p>)}
+            <p class="links"><a href={`${base}/timeline`}>See these years on the timeline</a> · <a href={`${base}/people`}>Who's who</a></p>
+          </div>
+        </details>
+      )}
     </div>
     <div class="meta">
       <p class="eyebrow">{kinds[item.kind]} · {item.date}</p>
@@ -62,6 +72,17 @@ const more = sorted.filter((i) => i.slug !== item.slug && (i.people.some((p) => 
   .media img { border: 1px solid var(--line); background: var(--paper-2); }
   .record { background: var(--tint-fern); padding: 24px 28px 20px; }
   .hint { font-size: 13.5px; color: var(--muted); margin: 14px 0 0; }
+  .story { margin-top: 18px; border: 1px solid var(--line); }
+  .story summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 20px; font-family: var(--display); font-size: 20px; }
+  .story summary::-webkit-details-marker { display: none; }
+  .story summary i { width: 12px; height: 12px; border-right: 2px solid var(--gilt); border-bottom: 2px solid var(--gilt); transform: rotate(45deg); transition: transform .2s ease; margin-right: 4px; }
+  .story[open] summary i { transform: rotate(-135deg); }
+  .story summary:hover { color: var(--oxblood); }
+  .story-body { padding: 4px 20px 20px; border-top: 1px solid var(--line); }
+  .story-body p { font-family: var(--display); font-size: 17px; line-height: 1.55; margin: 14px 0 0; }
+  .story-body .ch { font-family: var(--body); font-size: 14px; color: var(--muted); }
+  .story-body .ch b { color: var(--ink-2); font-weight: 600; }
+  .story-body .links { font-family: var(--body); font-size: 14px; margin-top: 18px; }
   h1 { font-size: clamp(30px, 3.6vw, 44px); margin-bottom: 14px; }
   .desc { font-family: var(--display); font-size: 19px; line-height: 1.45; }
   .ctx { color: var(--ink-2); }

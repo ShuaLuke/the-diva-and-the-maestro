@@ -1,6 +1,10 @@
 ---
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 import Layout from '../layouts/Layout.astro';
+import InlinePlay from '../components/InlinePlay.astro';
+import { bySlug } from '../data/archive';
+const darktown = bySlug('darktown-is-out-tonight-little-wonder')!;
+const whoDat = bySlug('who-dat-say-chicken-sousa-1900')!;
 ---
 <Layout title="The Audition" description="Read the prologue of The Diva and the Maestro: July 12, 1898, the morning Abbie Mitchell auditioned for Will Marion Cook on the roof of the Casino Theatre.">
   <div class="wrap page-title">
@@ -70,6 +74,7 @@ import Layout from '../layouts/Layout.astro';
 <p>Abbie was stunned. She had thrilled people in the choirs at her school and church, and just recently, when she sat on Aunt Jo's fire escape and sang for her neighbors. Abbie believed she was as talented as the famous singer Sissieretta Jones (nicknamed "The Black Patti" after the famous opera singer Adelina Patti), the only Black woman who had ever performed at the White House. What kind of man was this?</p>
 <p>"Come now Marion," cajoled Mr. Dunbar. Many of Will Marion's friends used his middle name as an affectionate nickname, particularly when trying to calm his notorious ire. "Be nice if you possibly can and play something for the little girl."</p>
 <p>Apparently mollified, Mr. Cook sat down at the piano. He played and sang <em>Love in a Cottage</em> and <em>Darktown is Out Tonight</em>, two of his own compositions. Both had a syncopated beat, like Ragtime, but a more dignified sound, like classical music. Abbie had never heard any music like it before, and despite her growing antipathy for the man, she was impressed by his talent. He was also the most beautiful man she had ever seen in her short life.</p>
+<InlinePlay item={darktown} lead="Hear what he played" />
 <p>But the lyrics!? They were not the kind Abbie was accustomed to singing, and she wasn't sure she would want to. <em>Warm coons a prancing, swell coons a dancing, tough coons who want to fight, darktown is out tonight?</em> What would her conservative aunts, Alice and Jo, say to these lyrics, Abbie thought to herself. Or worse, the nuns at school?</p>
 <p>"That is the kind of music you should sing. Negro music. And you are ashamed of it," Mr. Cook said in his gruff voice.</p>
 <p>Abbie tried to defend herself. "Decent colored girls do not sing coon songs or ragtime," she said indignantly.</p>
@@ -83,6 +88,7 @@ import Layout from '../layouts/Layout.astro';
 <p>"I was told you were paying fifty." Abbie had no idea where she mustered the courage to say that.</p>
 <p>"Ha!" said Mr. Cook. "We will give you thirty and see what you can do. Be here tomorrow at 8AM sharp. Now, what do you know about Clorindy?"</p>
 <p>"Ummmmm, just that it's a new show...."</p>
+<InlinePlay item={whoDat} lead="Hear Clorindy" />
 <p>"It is, and historic as well. It is the very first, all-colored Broadway show. Produced, directed, and performed entirely by Black folk," he said proudly. "You will be able to say you were part of it, and that's worth money."</p>
 <p>Abbie felt very fortunate indeed. Aside from the money, which would certainly help her family, this was an adventure that would take her mind off her grief. And it was an opportunity to get started in show business.</p>
 <p>"It's a far cry from the Metropolitan Opera," she thought to herself. "But it does sound exciting and after all, I have to start somewhere." Even if she did have to work for this abrasive, conceited, ridiculously handsome man.</p>
@@ -109,6 +115,8 @@ import Layout from '../layouts/Layout.astro';
   .reading { padding-top: 40px; padding-bottom: 48px; }
   .text { max-width: 62ch; font-family: var(--display); font-size: clamp(18px, 1.9vw, 20px); line-height: 1.6; }
   .text p { margin: 0 0 1.05em; }
+  .text :global(.hear) { font-family: var(--body); }
+  @media (min-width: 1180px) { .text { position: relative; } }
   .text p:first-child::first-letter { font-size: 3.4em; float: left; line-height: .85; padding: 4px 8px 0 0; color: var(--oxblood); }
   .after { max-width: 62ch; margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--line); }
   .after p { margin: 12px 0 16px; }

@@ -1,0 +1,68 @@
+---
+/* A small play button that sits beside a passage of text.
+   Shows the title, who is heard, and elapsed time; links to the recording's archive page. */
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+import type { ArchiveItem } from '../data/archive';
+interface Props { item: ArchiveItem; lead?: string; }
+const { item, lead = 'Hear it' } = Astro.props;
+---
+<aside class="hear" data-inline-play>
+  <button class="pp" type="button" aria-label={`Play ${item.title}`} aria-pressed="false">
+    <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+    <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zm6 0h4v14h-4z" fill="currentColor"/></svg>
+  </button>
+  <div class="txt">
+    <p class="lead">{lead}</p>
+    <p class="t"><a href={`${base}/archive/${item.slug}`}>{item.title}</a></p>
+    <p class="w">{item.performers}, {item.date} <span class="time" aria-live="off"></span></p>
+    <div class="bar" aria-hidden="true"><i></i></div>
+  </div>
+  <audio preload="none" src={`${base}${item.audio}`}></audio>
+</aside>
+
+<style>
+  .hear { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start; padding: 14px 16px; margin: 4px 0 22px; background: var(--tint-fern); border-left: 3px solid var(--fern); font-family: var(--body); }
+  .pp { width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--ink); color: var(--paper); display: grid; place-items: center; cursor: pointer; padding: 0; }
+  .pp:hover { background: var(--fern); }
+  .pp svg { width: 22px; height: 22px; }
+  .pp .i-pause { display: none; }
+  .hear.playing .pp .i-play { display: none; }
+  .hear.playing .pp .i-pause { display: block; }
+  .txt p { margin: 0; line-height: 1.35; }
+  .lead { font-size: 11.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--fern); }
+  .t { font-family: var(--display); font-size: 18px; margin-top: 2px !important; }
+  .t a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--gilt); }
+  .t a:hover { color: var(--oxblood); }
+  .w { font-size: 13px; color: var(--muted); margin-top: 2px !important; }
+  .time { font-variant-numeric: tabular-nums; }
+  .bar { height: 2px; background: var(--line); margin-top: 8px; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--fern); transition: width .25s linear; }
+  @media (min-width: 1180px) {
+    .hear { float: right; width: 280px; margin: 0 -320px 18px 28px; clear: right; }
+  }
+</style>
+
+<script>
+  const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+  const all = Array.from(document.querySelectorAll<HTMLElement>('[data-inline-play]'));
+  for (const el of all) {
+    const audio = el.querySelector('audio') as HTMLAudioElement;
+    const btn = el.querySelector('.pp') as HTMLButtonElement;
+    const time = el.querySelector('.time') as HTMLElement;
+    const bar = el.querySelector('.bar i') as HTMLElement;
+    btn.addEventListener('click', () => {
+      if (audio.paused) {
+        for (const other of all) if (other !== el) (other.querySelector('audio') as HTMLAudioElement).pause();
+        audio.play();
+      } else audio.pause();
+    });
+    audio.addEventListener('play', () => { el.classList.add('playing'); btn.setAttribute('aria-pressed', 'true'); });
+    audio.addEventListener('pause', () => { el.classList.remove('playing'); btn.setAttribute('aria-pressed', 'false'); });
+    audio.addEventListener('timeupdate', () => {
+      if (!audio.duration) return;
+      time.textContent = `· ${fmt(audio.currentTime)} / ${fmt(audio.duration)}`;
+      bar.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+    });
+    audio.addEventListener('ended', () => { bar.style.width = '0'; time.textContent = ''; });
+  }
+</script>
