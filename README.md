@@ -38,7 +38,7 @@ tick "Remember me" for 30 days.
 | Cast of characters | `src/data/people.ts` |
 | Colors and type | `src/styles/global.css` |
 | Header and footer | `src/components/` |
-| The site plan | `docs/site-plan.html` |
+| The site plan | `src/pages/plan.astro` (also published at /plan on the site) |
 
 ## Add an archive item
 

@@ -1,0 +1,121 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Site Plan" description="What the website is for, what the authors still need to supply, and what we plan to add next.">
+  <div class="wrap page-title">
+    <p class="eyebrow gilt">For the authors · Revised September 5, 2026</p>
+    <h1>Site plan</h1>
+    <p class="lede">What the website is for, what still needs to be supplied, and what we plan to add next. The site documents its own structure, so this page only covers what isn't built yet.</p>
+  </div>
+
+  <div class="wrap">
+    <section class="section">
+      <h2>What the site is for</h2>
+      <p class="lede">One site, three readers. The home page is built for the first; the rest of the site serves all three.</p>
+      <ul class="prose">
+        <li><strong>The reader deciding whether to buy.</strong> The story in ten seconds, proof it's good in one minute, and a buy button that works. The prologue is the proof.</li>
+        <li><strong>The reader with the book open.</strong> Faces, songs, and a quick answer to "who was Diamond Jim?"</li>
+        <li><strong>The teacher, scholar, or descendant.</strong> The archive. This is the part of the site that will still be visited in twenty years.</li>
+      </ul>
+      <p class="rule-label">How it presents the book</p>
+      <ul class="prose">
+        <li><strong>A novel based on a true story,</strong> said plainly and early. That separates it from Marva Griffin Carter's <em>Swing Along</em>, the academic Cook biography, and promises scenes and feeling a biography can't.</li>
+        <li><strong>The box comes first.</strong> Hundreds of pages found after Mercer Cook's death is the site's origin story and its most shareable fact.</li>
+        <li><strong>Abbie first,</strong> as in the title. Her page precedes his, her voice opens the home page.</li>
+        <li><strong>As frank as the book.</strong> Abbie was fourteen at the audition. The site neither hides that nor sensationalizes it, and it should use the authors' own sentence on the subject.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>What the authors still need to supply</h2>
+      <p class="lede">Everything on the site marked "to come" or "placeholder" is waiting on one of these.</p>
+      <ol class="prose">
+        <li><strong>Publisher, release date, and retailer links,</strong> so the button can say Buy or Pre-order and go somewhere.</li>
+        <li><strong>The cover</strong> at full resolution, and the two best portraits for the home page if the family has better ones than the public-domain pair now in use.</li>
+        <li><strong>The book's biographic summaries</strong> for Abbie, Will Marion, the historic characters, and the Cook family. They replace the placeholder text on <a href={`${base}/abbie`}>The Diva</a>, <a href={`${base}/will-marion`}>The Maestro</a>, and <a href={`${base}/people`}>People</a>.</li>
+        <li><strong>The sentence about Abbie's age,</strong> in the book's voice, for the Diva page.</li>
+        <li><strong>Author photographs and one paragraph each</strong> for <a href={`${base}/authors`}>the Authors page</a>.</li>
+        <li><strong>The first batch of family scans:</strong> even five photographs and two scores, each with a date (or "circa"), who is in it, and where it came from.</li>
+        <li><strong>Photographs of the box</strong> and a few of the pages inside it, for <a href={`${base}/the-box`}>The Box</a>.</li>
+        <li><strong>A contact address</strong> for the Authors page, and a decision on a mailing service for the newsletter form.</li>
+      </ol>
+      <div class="note">
+        <p><strong>Also:</strong> the table of contents reads "Flies the Coup" for chapter 15. The idiom is "coop." Worth catching before it appears in print.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>What to add next</h2>
+      <p class="lede">Four phases, in order of payoff. None of them change the look of the site; the colors and type stay as they are until we decide otherwise.</p>
+
+      <div class="phases">
+        <div class="phase">
+          <div class="n">1<small>Sound</small></div>
+          <div>
+            <h3>Hear the music where the story mentions it</h3>
+            <p>The book is about two musicians and the site is nearly silent. Public-domain recordings from 1900 to 1927 exist for several Cook songs at the Library of Congress National Jukebox and archive.org, including Bert Williams singing In Dahomey numbers and Bix Beiderbecke's 1927 "I'm Coming Virginia."</p>
+            <p>Plan: verify and collect the recordings, add each to the archive with source and rights, then put a small play button in the margin of <a href={`${base}/prologue`}>the prologue</a> at the moment Cook plays "Darktown" and "Love in a Cottage." This is the change that makes the site feel like something other than a book page.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="n">2<small>Pictures</small></div>
+          <div>
+            <h3>Moving pictures, and scores you can turn</h3>
+            <p>Edison and Biograph filmed cakewalks in 1903, the year of In Dahomey, and those films are public domain. Thirty seconds of footage on the In Dahomey and timeline pages would do more than any still photograph.</p>
+            <p>In the same phase, a page-turning viewer for the full NYPL scans of the two Clorindy scores, with the recording playing alongside. <a href={`${base}/archive`}>The archive</a> only shows the covers now.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="n">3<small>Showpiece</small></div>
+          <div>
+            <h3>Abbie's walk</h3>
+            <p>The prologue opens with a twenty-five-block walk from Greenwich Village to the Casino roof. A scroll-driven page traces the walk on an 1890s NYPL street map with the prologue text alongside. The most work of the four, and the thing people will share.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="n">4<small>Family</small></div>
+          <div>
+            <h3>The family's own material</h3>
+            <p>The box as an object: photographs of it and of typewritten pages, with the novel's passage beside the source page it came from. A family tree from John Hartwell Cook down to Jacques and Toni. Jacques reading the preface aloud, if he's willing. None of this can be sourced from the internet, so it waits on the co-authors.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="rule-label" style="margin-top:32px">Small polish, any time</p>
+      <ul class="prose">
+        <li>Reading time and a progress bar on the prologue.</li>
+        <li>"Then and now" photographs: the Casino Theatre was demolished in 1930; Strivers' Row still stands.</li>
+        <li>Chapter ornaments and a numbered contents list in the style of a printed score.</li>
+        <li>A custom domain. The title order is Diva first, so the domain should be too.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Decisions to make before Phase 1</h2>
+      <ul class="prose">
+        <li><strong>Inline audio in the prologue,</strong> or keep the reading experience uninterrupted and the music in the archive only?</li>
+        <li><strong>Bert Williams recordings.</strong> His act used blackface. The proposal is to include them with the same kind of contextual caption the "Darktown" cover already has, but it is the authors' call.</li>
+        <li><strong>The repository is public.</strong> The site's pages are password-protected, but the source text and images are visible on GitHub to anyone who finds it. If that becomes a concern, the options are GitHub Pro at about four dollars a month or moving hosting to Vercel.</li>
+      </ul>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  h2 { margin-bottom: 8px; }
+  .lede { font-size: 17px; color: var(--ink-2); margin: 0 0 22px; max-width: 60ch; }
+  ul.prose, ol.prose { padding-left: 22px; }
+  ul.prose li, ol.prose li { margin-bottom: 8px; }
+  .rule-label { margin: 28px 0 12px; }
+  .note { margin-top: 20px; }
+  .phases { max-width: 72ch; }
+  .phase { display: grid; grid-template-columns: 96px 1fr; gap: 16px; padding: 20px 0; border-top: 1px solid var(--line); }
+  .phase:last-child { border-bottom: 1px solid var(--line); }
+  .phase .n { font-family: var(--display); font-size: 24px; color: var(--gilt); line-height: 1.1; }
+  .phase .n small { display: block; font-family: var(--body); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+  .phase h3 { font-size: 22px; margin: 0 0 8px; }
+  .phase p { color: var(--ink-2); font-size: 15.5px; margin: 0 0 8px; }
+  .phase p:last-child { margin: 0; }
+  @media (max-width: 600px) { .phase { grid-template-columns: 1fr; gap: 6px; } }
+</style>
