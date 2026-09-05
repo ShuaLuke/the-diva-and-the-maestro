@@ -1,0 +1,127 @@
+---
+/* Leaf through a printed score. One page at a time, with previous/next controls, a page counter,
+   keyboard arrows, swipe, and a zoom toggle for reading the notes. The recording, if there is one,
+   plays underneath so you can follow the printed melody. Works without JavaScript as a plain list of pages. */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Props { pages: ImageMetadata[]; title: string; }
+const { pages, title } = Astro.props;
+---
+<div class="score" data-score>
+  <div class="stage">
+    <button class="nav prev" type="button" aria-label="Previous page">‹</button>
+    <div class="leaves" tabindex="0" aria-roledescription="carousel" aria-label={`${title}, ${pages.length} pages`}>
+      {pages.map((p, i) => (
+        <figure class="leaf" data-page={i + 1} aria-label={`Page ${i + 1} of ${pages.length}`}>
+          <Image src={p} alt={`${title}, page ${i + 1}`} width={1200} widths={[700, 1200, 1800]} sizes="(max-width: 900px) 92vw, 640px" loading={i === 0 ? 'eager' : 'lazy'} />
+        </figure>
+      ))}
+    </div>
+    <button class="nav next" type="button" aria-label="Next page">›</button>
+  </div>
+  <div class="bar">
+    <span class="counter tabular"><b>1</b> / {pages.length}</span>
+    <div class="dots" role="tablist" aria-label="Pages">
+      {pages.map((_, i) => <button type="button" role="tab" aria-label={`Go to page ${i + 1}`} aria-selected={i === 0 ? 'true' : 'false'} data-go={i + 1}></button>)}
+    </div>
+    <button class="zoom" type="button" aria-pressed="false">Zoom</button>
+  </div>
+  <p class="hint">Use the arrows, the arrow keys, or swipe. Zoom to read the notes; drag to move around the page.</p>
+</div>
+
+<style>
+  .score { --leafw: 100%; }
+  .stage { position: relative; display: grid; grid-template-columns: 44px 1fr 44px; gap: 8px; align-items: center; }
+  .leaves { overflow: hidden; background: var(--paper-2); border: 1px solid var(--line); aspect-ratio: 3 / 4; position: relative; outline: none; }
+  .leaves:focus-visible { outline: 2px solid var(--gilt); outline-offset: 3px; }
+  .leaf { position: absolute; inset: 0; margin: 0; display: none; overflow: hidden; }
+  .leaf.current { display: block; }
+  .leaf img { width: 100%; height: 100%; object-fit: contain; display: block; transform-origin: 0 0; }
+  .score.zoomed .leaf { overflow: auto; cursor: grab; }
+  .score.zoomed .leaf img { width: 220%; height: auto; max-width: none; }
+  .score.zoomed .leaf.dragging { cursor: grabbing; }
+  .nav { width: 44px; height: 64px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-family: var(--display); font-size: 30px; line-height: 1; cursor: pointer; }
+  .nav:hover { background: var(--ink); color: var(--paper); }
+  .nav[disabled] { opacity: .3; cursor: default; }
+  .nav[disabled]:hover { background: var(--paper); color: var(--ink); }
+  .bar { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px; margin-top: 12px; padding: 0 52px; }
+  .counter { font-family: var(--display); font-size: 18px; color: var(--muted); }
+  .counter b { color: var(--ink); font-weight: 500; }
+  .dots { display: flex; justify-content: center; gap: 8px; }
+  .dots button { width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--muted); background: transparent; padding: 0; cursor: pointer; }
+  .dots button[aria-selected="true"] { background: var(--gilt); border-color: var(--gilt); }
+  .zoom { font-family: var(--body); font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; border: 1px solid var(--ink); background: transparent; color: var(--ink); padding: 8px 12px; cursor: pointer; }
+  .zoom[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .hint { font-size: 13px; color: var(--muted); margin: 10px 0 0; padding: 0 52px; }
+  @media (max-width: 640px) {
+    .stage { grid-template-columns: 1fr; }
+    .nav { display: none; }
+    .bar, .hint { padding: 0; }
+  }
+  /* without JavaScript, show every page in a column */
+  html.no-js .leaf { position: static; display: block; margin-bottom: 12px; }
+  html.no-js .leaves { aspect-ratio: auto; }
+  html.no-js .bar, html.no-js .hint, html.no-js .nav { display: none; }
+</style>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>('[data-score]')) {
+    const leaves = Array.from(root.querySelectorAll<HTMLElement>('.leaf'));
+    const prev = root.querySelector('.prev') as HTMLButtonElement;
+    const next = root.querySelector('.next') as HTMLButtonElement;
+    const zoom = root.querySelector('.zoom') as HTMLButtonElement;
+    const counter = root.querySelector('.counter b') as HTMLElement;
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>('.dots button'));
+    const stage = root.querySelector('.leaves') as HTMLElement;
+    let page = 1;
+    const show = (n: number) => {
+      page = Math.max(1, Math.min(leaves.length, n));
+      leaves.forEach((l, i) => l.classList.toggle('current', i + 1 === page));
+      dots.forEach((d, i) => d.setAttribute('aria-selected', i + 1 === page ? 'true' : 'false'));
+      counter.textContent = String(page);
+      prev.disabled = page === 1;
+      next.disabled = page === leaves.length;
+      const cur = leaves[page - 1];
+      cur.scrollTo(0, 0);
+      const img = cur.querySelector('img') as HTMLImageElement;
+      if (img && img.loading === 'lazy') img.loading = 'eager';
+      const nxt = leaves[page]?.querySelector('img') as HTMLImageElement | undefined;
+      if (nxt && nxt.loading === 'lazy') nxt.loading = 'eager';
+    };
+    prev.addEventListener('click', () => show(page - 1));
+    next.addEventListener('click', () => show(page + 1));
+    dots.forEach((d) => d.addEventListener('click', () => show(Number(d.dataset.go))));
+    stage.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { show(page + 1); e.preventDefault(); }
+      if (e.key === 'ArrowLeft') { show(page - 1); e.preventDefault(); }
+    });
+    zoom.addEventListener('click', () => {
+      const on = !root.classList.contains('zoomed');
+      root.classList.toggle('zoomed', on);
+      zoom.setAttribute('aria-pressed', String(on));
+      zoom.textContent = on ? 'Fit page' : 'Zoom';
+    });
+    // swipe when fitted, drag-to-pan when zoomed
+    let x0 = 0, y0 = 0, sx = 0, sy = 0, down = false;
+    stage.addEventListener('pointerdown', (e) => {
+      down = true; x0 = e.clientX; y0 = e.clientY;
+      const cur = leaves[page - 1]; sx = cur.scrollLeft; sy = cur.scrollTop;
+      if (root.classList.contains('zoomed')) { cur.classList.add('dragging'); stage.setPointerCapture(e.pointerId); }
+    });
+    stage.addEventListener('pointermove', (e) => {
+      if (!down || !root.classList.contains('zoomed')) return;
+      const cur = leaves[page - 1];
+      cur.scrollLeft = sx - (e.clientX - x0); cur.scrollTop = sy - (e.clientY - y0);
+    });
+    const up = (e: PointerEvent) => {
+      if (!down) return; down = false;
+      leaves[page - 1].classList.remove('dragging');
+      if (root.classList.contains('zoomed')) return;
+      const dx = e.clientX - x0, dy = e.clientY - y0;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) show(dx < 0 ? page + 1 : page - 1);
+    };
+    stage.addEventListener('pointerup', up);
+    stage.addEventListener('pointercancel', () => { down = false; });
+    show(1);
+  }
+</script>

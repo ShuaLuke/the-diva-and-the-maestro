@@ -24,6 +24,18 @@ import burleigh from '../assets/archive/harry-burleigh-1917.jpg';
 import sissieretta from '../assets/archive/sissieretta-jones-1905.jpg';
 import cakeWalkFrame from '../assets/archive/cake-walk-biograph-1903-frame.jpg';
 import comedyCakeWalkFrame from '../assets/archive/comedy-cake-walk-biograph-1903-frame.jpg';
+import darktownP1 from '../assets/scores/darktown-p1.jpg';
+import darktownP2 from '../assets/scores/darktown-p2.jpg';
+import darktownP3 from '../assets/scores/darktown-p3.jpg';
+import darktownP4 from '../assets/scores/darktown-p4.jpg';
+import darktownP5 from '../assets/scores/darktown-p5.jpg';
+import darktownP6 from '../assets/scores/darktown-p6.jpg';
+import loveP1 from '../assets/scores/love-p1.jpg';
+import loveP2 from '../assets/scores/love-p2.jpg';
+import loveP3 from '../assets/scores/love-p3.jpg';
+import loveP4 from '../assets/scores/love-p4.jpg';
+import loveP5 from '../assets/scores/love-p5.jpg';
+import loveP6 from '../assets/scores/love-p6.jpg';
 
 export type Kind = 'photograph' | 'score' | 'program' | 'place' | 'film' | 'recording';
 export type Track = 'abbie' | 'will' | 'both' | 'world';
@@ -38,6 +50,8 @@ export interface ArchiveItem {
   image?: ImageMetadata;
   audio?: string;        // path under /public
   video?: string;        // path under /public, for films; `image` is then the poster frame
+  pages?: ImageMetadata[]; // every page of a score, cover to back, for the page-turning viewer
+  hear?: string;         // slug of a recording to play alongside a score
   label?: string;        // record label and catalog number, for recordings
   performers?: string;   // who is heard, for recordings
   chapter?: string;      // where the book tells this part of the story
@@ -106,8 +120,16 @@ export const archive: ArchiveItem[] = [
     year: 1898,
     image: darktown,
     people: ['Will Marion Cook', 'Paul Laurence Dunbar'],
-    description: 'Sheet music cover for the cake walk song from Clorindy, or The Origin of the Cake Walk. Words and music credited to "Will Marion."',
-    context: 'This is the song Cook plays for Abbie at the audition in the prologue, and the lyrics she balks at. The cover art uses the caricature conventions of the 1890s "coon song" trade that Cook was working inside of and against. Published by M. Witmark & Sons, New York.',
+    pages: [darktownP1, darktownP2, darktownP3, darktownP4, darktownP5, darktownP6],
+    hear: 'darktown-is-out-tonight-little-wonder',
+    description: 'The complete sheet music for the cake walk song from Clorindy, or The Origin of the Cake Walk: cover, four pages of music, and the back cover. Words and music credited to "Will Marion."',
+    context: 'This is the song Cook plays for Abbie at the audition in the prologue, and the lyrics she balks at are printed on pages two and three. The cover art uses the caricature conventions of the 1890s "coon song" trade that Cook was working inside of and against, and the back cover advertises the publisher\'s other "coon songs," which shows the shelf Witmark put him on. Published by M. Witmark & Sons, New York, 1898.',
+    chapter: 'Prologue, The Audition',
+    story: [
+      'Turn to page two and you are looking at what Abbie saw on the piano rack. "Warm coons a-prancing, swell coons a-dancing, tough coons who\'ll want to fight." She had been raised on hymns and Schubert, and she told the composer that decent colored girls did not sing this. He told her it was the most innovative music in America. The music, a syncopated march with a chorus built for a strutting entrance, was; the words were the price of getting it on a Broadway roof in 1898.',
+      'The back cover lists the Witmark catalogue this song was sold in, under the heading "Coon Songs." Cook\'s name sits among the white songwriters who made careers in the genre. He spent the next forty years trying to get out of that column and into the one marked concert music, and by 1912 he had, with pieces like "Rain Song" and "Exhortation" that are also on this site.',
+      'Note the credit line: "Words and music by Will Marion," no surname. The show\'s lyrics were Dunbar\'s, but Cook rewrote them as the run went on and put his own name on the sheet music. The friendship survived it, barely.',
+    ],
     source: 'New York Public Library, Music Division',
     sourceUrl: 'https://digitalcollections.nypl.org/items/510d47df-f142-a3d9-e040-e00a18064a99',
     rights: 'Public domain. Published in the United States before 1931.',
@@ -115,15 +137,23 @@ export const archive: ArchiveItem[] = [
   },
   {
     slug: 'love-in-a-cottage-is-best-1898',
-    title: 'Love in a Cottage Is Best',
+    title: 'Love in a Cottage Is Best, from "Gems from Clorindy"',
     kind: 'score',
     track: 'will',
     date: '1898',
     year: 1898,
     image: loveCottage,
     people: ['Will Marion Cook', 'Paul Laurence Dunbar'],
-    description: 'Sheet music cover for a song from Clorindy, the other number Cook plays at the audition.',
-    context: 'Dedicated "to Miss Rose Braham, New York." The copy scanned here carries the stamp of a music shop in La Crosse, Wisconsin, a small sign of how far the Clorindy songs travelled in their first year.',
+    pages: [loveP1, loveP2, loveP3, loveP4, loveP5, loveP6],
+    hear: 'who-dat-say-chicken-sousa-1900',
+    description: 'The complete sheet music for the ballad from Clorindy, the other number Cook plays at the audition, inside a "Gems from Clorindy" folio cover that lists every song in the show.',
+    context: 'Dedicated "to Miss Rose Braham, New York." The cover of this copy is the publisher\'s folio cover for the whole show, with Dunbar\'s name as large as Cook\'s and a price list of all seven Clorindy numbers, "Darktown" and "Who Dat Say Chicken" among them. The copy carries the stamp of a music shop in La Crosse, Wisconsin, a small sign of how far the Clorindy songs travelled in their first year. Published by M. Witmark & Sons, 1898.',
+    chapter: 'Prologue, The Audition',
+    story: [
+      'This is the gentler of the two songs Cook plays for Abbie, a waltz-time ballad rather than a cake walk, and it shows the other side of what he was writing in 1898: a parlor song any soprano could sing. It is the kind of piece Abbie would have been comfortable with, which may be why he played it first.',
+      'The folio cover is the best surviving picture of what Clorindy was. "A Negro musical farce, libretto by Paul Laurence Dunbar, music by Will Marion." Seven numbers at fifty cents each. The two names in equal type are worth pausing on: within a year Cook was putting his own name alone on the individual songs.',
+      'The inside front cover and the back cover are Witmark advertisements, one for "concert, parlor and high class encore songs," the other for a piano method. That is where Cook\'s ballad sat in the marketplace, between the drawing room and the coon-song list on the back of "Darktown." He wanted the drawing room.',
+    ],
     source: 'New York Public Library, Music Division',
     sourceUrl: 'https://digitalcollections.nypl.org/items/510d47df-f092-a3d9-e040-e00a18064a99',
     rights: 'Public domain. Published in the United States before 1931.',
