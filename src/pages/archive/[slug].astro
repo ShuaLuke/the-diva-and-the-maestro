@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import ArchiveTile from '../../components/ArchiveTile.astro';
+import { archive, sorted, kinds } from '../../data/archive';
+
+export function getStaticPaths() {
+  return archive.map((item) => ({ params: { slug: item.slug }, props: { item } }));
+}
+const { item } = Astro.props;
+const idx = sorted.findIndex((i) => i.slug === item.slug);
+const prev = sorted[(idx - 1 + sorted.length) % sorted.length];
+const next = sorted[(idx + 1) % sorted.length];
+const more = sorted.filter((i) => i.slug !== item.slug && (i.people.some((p) => item.people.includes(p)) || i.kind === item.kind)).slice(0, 4);
+---
+<Layout title={item.title} description={item.description}>
+  <div class="wrap item">
+    <div class="media">
+      {item.image && <Image src={item.image} alt={item.title} width={1200} widths={[640, 1000, 1400]} sizes="(max-width: 900px) 92vw, 640px" loading="eager" />}
+      {item.audio && (
+        <div class="player">
+          <p class="eyebrow gilt">Recording · {item.date}</p>
+          <audio controls preload="metadata" src={item.audio}>Your browser cannot play this file. <a href={item.audio}>Download it</a> instead.</audio>
+        </div>
+      )}
+    </div>
+    <div class="meta">
+      <p class="eyebrow">{kinds[item.kind]} · {item.date}</p>
+      <h1>{item.title}</h1>
+      <p class="desc">{item.description}</p>
+      {item.context && <p class="ctx">{item.context}</p>}
+      <dl>
+        {item.people.length > 0 && <><dt>People</dt><dd>{item.people.join(', ')}</dd></>}
+        <dt>Source</dt><dd>{item.sourceUrl ? <a href={item.sourceUrl} rel="noopener">{item.source}</a> : item.source}</dd>
+        <dt>Rights</dt><dd>{item.rights}</dd>
+      </dl>
+      <nav class="pn" aria-label="Previous and next">
+        <a href={`/archive/${prev.slug}`}>← {prev.title}</a>
+        <a href={`/archive/${next.slug}`}>{next.title} →</a>
+      </nav>
+      <p><a href="/archive">All items</a></p>
+    </div>
+  </div>
+
+  {more.length > 0 && (
+    <section class="wrap section">
+      <p class="rule-label">Related</p>
+      <div class="grid-4" style="margin-top:20px">
+        {more.map((i) => <ArchiveTile item={i} />)}
+      </div>
+    </section>
+  )}
+</Layout>
+
+<style>
+  .item { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, 1fr); gap: clamp(28px, 5vw, 72px); padding-top: 40px; align-items: start; }
+  .media img { border: 1px solid var(--line); background: var(--paper-2); }
+  .player { background: var(--tint-fern); padding: 28px; }
+  .player audio { width: 100%; }
+  h1 { font-size: clamp(30px, 3.6vw, 44px); margin-bottom: 14px; }
+  .desc { font-family: var(--display); font-size: 19px; line-height: 1.45; }
+  .ctx { color: var(--ink-2); }
+  dl { margin: 24px 0; border-top: 1px solid var(--line); }
+  dt { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 14px; }
+  dd { margin: 3px 0 0; font-size: 15px; }
+  .pn { display: flex; justify-content: space-between; gap: 16px; font-size: 14px; margin: 24px 0 12px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .pn a { text-decoration: none; color: var(--ink-2); }
+  .pn a:hover { color: var(--oxblood); }
+  @media (max-width: 900px) { .item { grid-template-columns: 1fr; } }
+</style>

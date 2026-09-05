@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="The Authors" description="Jacques Cook, Antoinette Cook Bush, and Penny Daniels, the authors of The Diva and the Maestro.">
+  <div class="wrap page-title">
+    <p class="eyebrow gilt">The Authors</p>
+    <h1>Three authors, one family</h1>
+    <p class="lede">A grandson, a great-granddaughter, and a friend, each determined to bring a virtually untold story to light.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="grid-3 authors" style="padding-top:40px">
+      <article>
+        <div class="ph" aria-hidden="true"></div>
+        <h2>Jacques Cook</h2>
+        <p>Grandson of Abbie Mitchell and Will Marion Cook, and son of Ambassador Mercer Cook. He found the box in his father's house and began the work of turning its pages into this book.</p>
+        <p class="small">Full biography to come.</p>
+      </article>
+      <article>
+        <div class="ph" aria-hidden="true"></div>
+        <h2>Antoinette Cook Bush</h2>
+        <p>Great-granddaughter of Abbie and Will Marion, and Jacques's niece. Known as Toni.</p>
+        <p class="small">Full biography to come.</p>
+      </article>
+      <article>
+        <div class="ph" aria-hidden="true"></div>
+        <h2>Penny Daniels</h2>
+        <p>Writer and friend of the family.</p>
+        <p class="small">Full biography to come.</p>
+      </article>
+    </div>
+
+    <section class="section">
+      <div class="grid-2">
+        <div>
+          <p class="rule-label">Press kit</p>
+          <ul class="kit">
+            <li>Cover art, high resolution <span>to come</span></li>
+            <li>Author photographs <span>to come</span></li>
+            <li>One-page synopsis <span>to come</span></li>
+            <li>Sample chapter: <a href="/prologue">the prologue</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="rule-label">Contact</p>
+          <p>For readings, interviews, and rights inquiries, write to the authors.</p>
+          <p><a class="btn" href="mailto:hello@thedivaandthemaestro.com">hello@thedivaandthemaestro.com</a></p>
+          <p class="small">Placeholder address until the domain is set up.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .authors article h2 { font-size: 26px; margin: 14px 0 8px; }
+  .authors p { color: var(--ink-2); font-size: 15.5px; }
+  .ph { aspect-ratio: 4 / 5; background: var(--paper-2); border: 1px solid var(--line); }
+  .small { font-size: 13.5px; color: var(--muted); }
+  .kit { list-style: none; padding: 0; margin: 16px 0 0; }
+  .kit li { padding: 10px 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; gap: 12px; font-size: 15.5px; }
+  .kit li span { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+</style>

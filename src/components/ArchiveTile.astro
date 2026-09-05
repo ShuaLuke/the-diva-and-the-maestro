@@ -1,0 +1,22 @@
+---
+import { Image } from 'astro:assets';
+import type { ArchiveItem } from '../data/archive';
+interface Props { item: ArchiveItem; }
+const { item } = Astro.props;
+---
+<a class="tile" href={`/archive/${item.slug}`}>
+  <div class="frame" class:list={[!item.image && 'audio']}>
+    {item.image
+      ? <Image src={item.image} alt={item.title} width={640} widths={[320, 640, 960]} sizes="(max-width: 640px) 90vw, 320px" />
+      : <div class="disc" aria-hidden="true"><span>♪</span></div>}
+  </div>
+  <div class="caption">
+    <b>{item.title}</b>
+    <span>{item.date} · {item.kind === 'score' ? 'Sheet music' : item.kind[0].toUpperCase() + item.kind.slice(1)}</span>
+  </div>
+</a>
+
+<style>
+  .frame.audio { display: grid; place-items: center; background: var(--tint-fern); }
+  .disc { width: 56%; aspect-ratio: 1; border-radius: 50%; background: var(--ink); display: grid; place-items: center; color: var(--gilt); font-size: 42px; font-family: var(--display); }
+</style>

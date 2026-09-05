@@ -1,0 +1,148 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import ArchiveTile from '../components/ArchiveTile.astro';
+import { featured } from '../data/archive';
+import abbie from '../assets/archive/abbie-mitchell-portrait.jpg';
+import will from '../assets/archive/will-marion-cook-portrait.jpg';
+const picks = featured.filter((i) => !['abbie-mitchell-portrait', 'will-marion-cook-portrait'].includes(i.slug)).slice(0, 4);
+---
+<Layout>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow gilt">A novel based on a true story</p>
+        <h1><span class="diva">The Diva</span> <span class="amp">and</span> <span class="maestro">the Maestro</span></h1>
+        <p class="sub">The Life and Times of Abbie Mitchell and Will Marion Cook</p>
+        <p class="by">Jacques Cook · Antoinette Cook Bush · Penny Daniels</p>
+        <p class="tagline">A legendary love affair. Inarguable genius. Ground-breaking art.</p>
+        <p class="dek">In the summer of 1898, a fourteen-year-old soprano climbed to the roof of the Casino Theatre to audition for the most arrogant man on Broadway. He hired her for thirty dollars a week. What followed was a marriage, a musical revolution, and a story their own family did not know until they found it in a box.</p>
+        <div class="btn-row">
+          <a class="btn primary" href="/book">About the book</a>
+          <a class="btn" href="/prologue">Read the prologue</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <figure class="portrait abbie">
+          <Image src={abbie} alt="Abbie Mitchell" width={520} widths={[400, 520, 800]} sizes="(max-width: 800px) 45vw, 260px" loading="eager" />
+          <figcaption>Abbie Mitchell</figcaption>
+        </figure>
+        <figure class="portrait will">
+          <Image src={will} alt="Will Marion Cook" width={520} widths={[400, 520, 800]} sizes="(max-width: 800px) 45vw, 260px" loading="eager" />
+          <figcaption>Will Marion Cook</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section box">
+    <div class="wrap grid-2">
+      <div>
+        <p class="eyebrow">The Box</p>
+        <h2>It started with a cardboard box.</h2>
+      </div>
+      <div class="prose">
+        <p class="big">After his father died, Jacques Cook found a large box in the house, stuffed with hundreds of pages of prose. The pages told the story of his grandparents: two Black artists, one generation out of slavery, who reached the heights of American music while Jim Crow tried to stop them at every turn.</p>
+        <p>Will Marion died before Jacques was born. Abbie died when he was a boy. The box gave them back to him, and this book gives them to everyone else.</p>
+        <p><a href="/the-box">How the book came to be</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid-2 two">
+        <article>
+          <p class="eyebrow">The Diva</p>
+          <h3 class="diva">Abbie Mitchell</h3>
+          <p class="dates tabular">1884–1960</p>
+          <p>Born to a Jewish father and a Black mother, she walked onto Broadway at fourteen and sang for a king at nineteen. Decades later she was the first voice to sing "Summertime" in <em>Porgy and Bess</em>.</p>
+          <p><a href="/abbie">Her story</a></p>
+        </article>
+        <article>
+          <p class="eyebrow">The Maestro</p>
+          <h3 class="maestro">Will Marion Cook</h3>
+          <p class="dates tabular">1869–1944</p>
+          <p>A violin prodigy trained in Berlin and by Dvořák, he wrote the first all-Black Broadway musical, took Black American music to Europe, and taught a young Duke Ellington.</p>
+          <p><a href="/will-marion">His story</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section excerpt">
+    <div class="wrap grid-2">
+      <div>
+        <p class="eyebrow">From the prologue</p>
+        <h2>The Audition.<br />July 12, 1898.</h2>
+      </div>
+      <div class="prose">
+        <blockquote>"You have a glorious voice, little girl, plenty of fire, but you can't sing a damn thing!"</blockquote>
+        <p style="margin-top:20px">Abbie Mitchell has just lost her father and her grandmother. Her aunt has spent her last pennies on a dress. And the man at the piano is about to change her life.</p>
+        <p><a class="btn" href="/prologue">Read the prologue</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">From the archive</p>
+          <h2>Photographs, scores, and places.</h2>
+        </div>
+        <p>Portraits, sheet music covers, and the rooms where it happened. Each item carries its date, source, and rights.</p>
+      </div>
+      <div class="grid-4">
+        {picks.map((item) => <ArchiveTile item={item} />)}
+      </div>
+      <p style="margin-top:28px"><a class="btn" href="/archive">Browse the archive</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">The authors</p>
+      <div class="grid-3 authors">
+        <div><h3>Jacques Cook</h3><p>Grandson of Abbie and Will Marion. Found the box.</p></div>
+        <div><h3>Antoinette Cook Bush</h3><p>Great-granddaughter. Jacques's niece.</p></div>
+        <div><h3>Penny Daniels</h3><p>Writer and family friend.</p></div>
+      </div>
+      <p><a href="/authors">About the authors</a></p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero { padding: clamp(40px, 7vw, 88px) 0 clamp(40px, 6vw, 72px); border-bottom: 1px solid var(--line); }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .hero h1 .amp { font-size: .55em; color: var(--muted); font-style: italic; margin: 0 .1em; }
+  .sub { font-family: var(--display); font-style: italic; font-size: clamp(20px, 2.4vw, 26px); line-height: 1.25; color: var(--ink-2); margin: 16px 0 10px; max-width: 34ch; }
+  .by { font-size: 14px; letter-spacing: .04em; color: var(--muted); margin: 0 0 26px; }
+  .tagline { font-family: var(--display); font-size: clamp(20px, 2.2vw, 24px); line-height: 1.3; margin: 0 0 16px; max-width: 40ch; }
+  .dek { color: var(--ink-2); max-width: 56ch; margin: 0 0 28px; }
+  .hero-art { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: end; }
+  .portrait img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; filter: grayscale(1) contrast(1.05); border: 1px solid var(--line); }
+  .portrait.abbie { transform: translateY(-24px); }
+  .portrait figcaption { font-family: var(--display); font-size: 15px; margin-top: 8px; }
+  .portrait.abbie figcaption { color: var(--oxblood); font-style: italic; }
+  .portrait.will figcaption { color: var(--fern); }
+
+  .box { background: var(--paper-2); }
+  .big { font-family: var(--display); font-size: clamp(19px, 2.1vw, 23px); line-height: 1.45; }
+
+  .two article { border-top: 2px solid var(--line); padding-top: 18px; }
+  .two article:first-child { border-top-color: var(--oxblood); }
+  .two article:last-child { border-top-color: var(--fern); }
+  .two h3 { font-size: clamp(28px, 3.2vw, 36px); margin-bottom: 4px; }
+  .dates { font-size: 13px; letter-spacing: .1em; color: var(--muted); margin: 0 0 12px; }
+
+  .authors h3 { font-size: 22px; margin-bottom: 4px; }
+  .authors p { color: var(--ink-2); font-size: 15.5px; }
+
+  @media (max-width: 800px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-art { max-width: 520px; }
+    .portrait.abbie { transform: none; }
+  }
+</style>

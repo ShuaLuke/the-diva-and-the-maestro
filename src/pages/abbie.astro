@@ -1,0 +1,72 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import ArchiveTile from '../components/ArchiveTile.astro';
+import { archive } from '../data/archive';
+import { timeline } from '../data/timeline';
+import portrait from '../assets/archive/abbie-mitchell-portrait.jpg';
+const related = archive.filter((i) => i.slug !== 'abbie-mitchell-portrait' && (i.track === 'abbie' || i.track === 'both' || i.slug === 'sissieretta-jones-1905')).slice(0, 4);
+const hers = timeline.filter((e) => e.track !== 'will');
+---
+<Layout title="The Diva" description="Abbie Mitchell (1884–1960): soprano, actress, and the Diva of The Diva and the Maestro.">
+  <div class="wrap page-title">
+    <p class="eyebrow gilt">The Diva</p>
+    <h1 class="diva">Abbie Mitchell</h1>
+    <p class="lede">1884–1960. Soprano, actress, and the first voice to sing "Summertime."</p>
+  </div>
+
+  <div class="wrap layout">
+    <figure class="portrait">
+      <Image src={portrait} alt="Abbie Mitchell" width={720} widths={[480, 720, 1000]} sizes="(max-width: 860px) 90vw, 360px" loading="eager" />
+      <figcaption>Abbie Mitchell, undated. <a href="/archive/abbie-mitchell-portrait">About this photograph</a></figcaption>
+    </figure>
+
+    <div class="prose">
+      <p class="big">She was fourteen when she climbed to the roof of the Casino Theatre, and she had already lost her father and her grandmother that year. She left with a job in the first all-Black show on Broadway, at thirty dollars a week, working for a man she found abrasive, conceited, and ridiculously handsome.</p>
+      <p>Abbie Mitchell was born in New York in 1884 to a Jewish father and a Black mother, and raised by her aunts. She wanted to sing opera at the Met. What she got, first, was <em>Clorindy</em>, then marriage to its composer, then <em>In Dahomey</em> and a summer in London that ended with a command performance at Buckingham Palace, then two children, then a marriage coming apart.</p>
+      <p>What she did next is the reason the book puts her name first. She built a career of her own: concert tours in Europe, the Lafayette Players in Harlem, a voice department to run at Tuskegee. In 1935, at fifty, she created the role of Clara in the original <em>Porgy and Bess</em> and was the first person to sing "Summertime" on a stage. The same year she appeared on Broadway in Langston Hughes's <em>Mulatto</em>.</p>
+      <p>She outlived Will Marion by sixteen years and spent them, among other things, making sure his music was not forgotten.</p>
+
+      <div class="note">
+        <p><strong>On her age.</strong> Abbie was fourteen at the audition and fifteen when she married. The book does not look away from this, and neither does this site. The authors' own words on the subject will replace this note.</p>
+      </div>
+
+      <h2>In the book</h2>
+      <p>Abbie's story runs through the chapters "The Tempestuous Prodigy," "An Unconventional Love Affair," "Born Black, Jewish, and Gifted," "The Ingenue," "Abbie's Resolve," "The Survivor," and "A Trailblazer's Triumph."</p>
+    </div>
+  </div>
+
+  <section class="wrap section">
+    <p class="rule-label">Her years</p>
+    <ol class="years">
+      {hers.map((e) => (
+        <li>
+          <span class="y tabular">{e.year}</span>
+          <div><b>{e.title}</b><p>{e.text}</p></div>
+        </li>
+      ))}
+    </ol>
+    <p><a href="/timeline">The full timeline, hers and his</a></p>
+  </section>
+
+  <section class="wrap section">
+    <div class="section-head">
+      <div><p class="eyebrow">From the archive</p><h2>Abbie's world</h2></div>
+    </div>
+    <div class="grid-4">
+      {related.map((item) => <ArchiveTile item={item} />)}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .layout { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); padding-top: 48px; align-items: start; }
+  .portrait img { filter: grayscale(1); border: 1px solid var(--line); }
+  .big { font-family: var(--display); font-size: clamp(20px, 2.2vw, 24px); line-height: 1.4; }
+  .years { list-style: none; padding: 0; margin: 20px 0 24px; max-width: 72ch; }
+  .years li { display: grid; grid-template-columns: 90px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .years .y { font-family: var(--display); font-size: 20px; color: var(--oxblood); }
+  .years b { font-family: var(--display); font-weight: 500; font-size: 19px; display: block; margin-bottom: 4px; }
+  .years p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } .portrait { max-width: 360px; } }
+</style>

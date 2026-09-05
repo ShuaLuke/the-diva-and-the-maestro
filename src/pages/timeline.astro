@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { timeline } from '../data/timeline';
+---
+<Layout title="Timeline" description="Two lives on two tracks: Abbie Mitchell and Will Marion Cook from 1869 to 1960.">
+  <div class="wrap page-title">
+    <p class="eyebrow gilt">Timeline</p>
+    <h1>Two lives, <span class="diva">hers</span> and <span class="maestro">his</span></h1>
+    <p class="lede">They meet in 1898 on the roof of a theatre. The tracks join, then part, then keep crossing for the rest of their lives.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="legend">
+      <span><i class="sw abbie"></i> Abbie</span>
+      <span><i class="sw will"></i> Will Marion</span>
+      <span><i class="sw both"></i> Together</span>
+    </div>
+
+    <ol class="tl">
+      {timeline.map((e) => (
+        <li class={e.track}>
+          <div class="rail" aria-hidden="true"><i></i></div>
+          <div class="body">
+            <span class="year tabular">{e.year}</span>
+            <h3>{e.link ? <a href={e.link}>{e.title}</a> : e.title}</h3>
+            <p>{e.text}</p>
+            {e.chapter && <p class="ch">{e.chapter}</p>}
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <div class="note" style="margin: 40px 0 48px">
+      <p>Dates outside the manuscript are drawn from standard references and will be checked against the book's biographic summaries. Where sources disagree, the book's account governs.</p>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .legend { display: flex; gap: 24px; flex-wrap: wrap; margin: 32px 0 8px; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 8px; }
+  .sw { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .sw.abbie { background: var(--oxblood); } .sw.will { background: var(--fern); } .sw.both { background: var(--gilt); }
+
+  .tl { list-style: none; padding: 0; margin: 0; max-width: 860px; }
+  .tl li { display: grid; grid-template-columns: 120px 1fr; gap: 0 24px; }
+  .rail { position: relative; }
+  .rail::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--line); }
+  .rail i { position: absolute; left: 50%; top: 32px; width: 14px; height: 14px; border-radius: 50%; transform: translateX(-50%); border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--line); }
+  li.abbie .rail i { background: var(--oxblood); transform: translateX(calc(-50% - 22px)); }
+  li.will .rail i { background: var(--fern); transform: translateX(calc(-50% + 22px)); }
+  li.both .rail i { background: var(--gilt); width: 18px; height: 18px; }
+  .body { padding: 24px 0 28px; border-bottom: 1px solid var(--line); }
+  .year { font-family: var(--display); font-size: 15px; color: var(--muted); letter-spacing: .04em; }
+  h3 { font-size: 24px; margin: 4px 0 8px; }
+  h3 a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--gilt); }
+  h3 a:hover { color: var(--oxblood); }
+  li.abbie h3 { color: var(--oxblood); } li.will h3 { color: var(--fern); }
+  .body p { color: var(--ink-2); max-width: 62ch; margin: 0 0 6px; }
+  .ch { font-size: 13px; color: var(--muted); font-style: italic; }
+  @media (max-width: 600px) { .tl li { grid-template-columns: 56px 1fr; } li.abbie .rail i, li.will .rail i { transform: translateX(-50%); } }
+</style>

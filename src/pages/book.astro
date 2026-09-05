@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+const chapters = [
+  ['Preface', 'The Box'], ['Prologue', 'The Audition'],
+  ['1', 'The Tempestuous Prodigy'], ['2', 'An Unconventional Love Affair'], ['3', 'Young Master Willie'], ['4', 'A Most Unusual Family'],
+  ['5', 'The Young Genius on the Continent'], ['6', 'A New American Music'], ['7', 'Born Black, Jewish, and Gifted'], ['8', 'The Ingenue'],
+  ['9', 'A Rocky Start'], ['10', 'Thank You, Diamond Jim'], ['11', 'Crossing to Freedom'], ['12', 'A Royal Fairy Tale'],
+  ['13', 'Abbie\'s Resolve'], ['14', 'The Crazy Genius'], ['15', 'The Mockingbird Flies the Coop'], ['16', '"On the Cusp of Something New"'],
+  ['17', 'The Survivor'], ['18', 'Making the World "Safe" for Democracy'], ['19', 'The Expatriates'], ['20', 'The Harlem Years'],
+  ['21', 'A Trailblazer\'s Triumph'], ['Epilogue', 'Legacies'],
+];
+---
+<Layout title="The Book" description="The Diva and the Maestro: a novel based on the true story of Abbie Mitchell and Will Marion Cook, by Jacques Cook, Antoinette Cook Bush, and Penny Daniels.">
+  <div class="wrap page-title">
+    <p class="eyebrow gilt">The Book</p>
+    <h1><span class="diva">The Diva</span> and <span class="maestro">the Maestro</span></h1>
+    <p class="lede">The Life and Times of Abbie Mitchell and Will Marion Cook. Black musical pioneers in early twentieth-century America.</p>
+  </div>
+
+  <div class="wrap layout">
+    <div class="prose">
+      <p class="big">Abbie Mitchell and Will Marion Cook survived scandals, financial disaster, severe health problems, and Jim Crow America to leave an indelible impact on American music and culture.</p>
+      <p>In the early twentieth century, Abbie Mitchell was an internationally acclaimed actress and singer. Will Marion Cook was a famous composer, conductor, and lyricist, the creator of the first all-Black Broadway musicals and a mentor to Duke Ellington and many other greats of modern jazz. Yet today few people have heard of Abbie or Will Marion, or of their remarkable love story.</p>
+      <p><em>The Diva and the Maestro</em> is a novel based on their lives. It begins on the roof of the Casino Theatre in July 1898, when a grieving fourteen-year-old with a glorious voice auditions for a brilliant, arrogant composer nearly twice her age, and it follows the two of them through a marriage, two children, a royal command performance, a bitter parting, and two long careers that kept circling back to each other.</p>
+      <p>It was written by their grandson, their great-granddaughter, and a family friend, from a box of pages the family did not know existed.</p>
+
+      <h2>How is this different from <em>Swing Along</em>?</h2>
+      <p>Marva Griffin Carter's <em>Swing Along: The Musical Life of Will Marion Cook</em> (Oxford, 2008) is the scholarly biography of Cook, and it is excellent. This book is something else. It is the story of the marriage, told as a novel, with Abbie at the center and the family's own papers as its source. Where <em>Swing Along</em> gives you the music, <em>The Diva and the Maestro</em> gives you the rooms, the arguments, and the two people.</p>
+
+      <h2>Contents</h2>
+      <ol class="toc tabular">
+        {chapters.map(([n, t]) => (
+          <li><span class="n">{n}</span><span class="t">{t}</span></li>
+        ))}
+      </ol>
+      <p class="small">Followed by author notes on the box, biographic summaries of the historic characters and the Cook family, and author biographies.</p>
+    </div>
+
+    <aside class="buy">
+      <p class="rule-label">Get the book</p>
+      <div class="cover" aria-hidden="true">
+        <span class="diva">The Diva</span><span class="amp">and</span><span class="maestro">the Maestro</span>
+      </div>
+      <p class="small">Cover art to come.</p>
+      <div class="links">
+        <a class="btn primary" href="#">Pre-order</a>
+        <p class="small">Retailer links will be added when the book is listed. Bookshop.org, Amazon, Barnes &amp; Noble, and your local bookseller.</p>
+      </div>
+      <p class="rule-label" style="margin-top:32px">Details</p>
+      <dl>
+        <dt>Authors</dt><dd>Jacques Cook, Antoinette Cook Bush, Penny Daniels</dd>
+        <dt>Form</dt><dd>A novel based on a true story</dd>
+        <dt>Length</dt><dd>About 345 pages</dd>
+        <dt>Publisher</dt><dd>To be announced</dd>
+        <dt>Publication</dt><dd>To be announced</dd>
+      </dl>
+    </aside>
+  </div>
+</Layout>
+
+<style>
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: clamp(32px, 6vw, 88px); padding-top: 48px; padding-bottom: 48px; }
+  .big { font-family: var(--display); font-size: clamp(20px, 2.2vw, 24px); line-height: 1.4; }
+  .toc { list-style: none; padding: 0; margin: 0 0 12px; border-top: 1px solid var(--line); }
+  .toc li { display: grid; grid-template-columns: 84px 1fr; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+  .toc .n { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+  .toc .t { font-family: var(--display); font-size: 18px; }
+  .small { font-size: 14px; color: var(--muted); }
+  .cover { aspect-ratio: 2 / 3; background: var(--ink); color: var(--paper); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; font-family: var(--display); font-size: 26px; text-align: center; padding: 20px; margin: 14px 0 6px; }
+  .cover .amp { font-size: 15px; color: var(--gilt); font-style: italic; }
+  .cover .diva { color: #E9A2AC; }
+  .cover .maestro { color: #9FD0BA; }
+  .links { margin-top: 16px; }
+  .links .btn { display: block; text-align: center; margin-bottom: 10px; }
+  dl { margin: 12px 0 0; font-size: 14.5px; }
+  dt { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+  dd { margin: 2px 0 0; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } .buy { max-width: 360px; } }
+</style>

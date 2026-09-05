@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="The Box" description="How The Diva and the Maestro came to be: a cardboard box of pages found in Mercer Cook's home, and three authors determined to tell the story it held.">
+  <div class="wrap page-title">
+    <p class="eyebrow gilt">Preface</p>
+    <h1>The Box</h1>
+    <p class="lede">How a grandson who barely knew his grandparents came to write their story.</p>
+  </div>
+
+  <article class="wrap reading">
+    <div class="text">
+      <p>My name is Jacques Cook and the Diva and the Maestro were my grandparents. This novel, based on the remarkable true story of their lives, is the product of a unique collaboration between me, my niece Antoinette ("Toni") Cook Bush, and our friend, the writer Penny Daniels, each of us passionate about Abbie and Will Marion and equally determined to bring their virtually untold story to light.</p>
+      <p>In the early 20th century, Abbie Mitchell was an internationally acclaimed actress and singer, and Will Marion was a famous composer, conductor, lyricist, creator of the first all-Black Broadway musicals and mentor to Duke Ellington and many other greats of modern jazz. Yet today, few people have heard of Abbie or Will Marion, or their remarkable love story.</p>
+      <p>Growing up, I, too, knew little about my grandparents; Will Marion died before I was born, and Abbie died when I was quite young. But then, I discovered a treasure in my father's home after he passed away: a large cardboard box, stuffed with hundreds of pages of prose. The box revealed the fascinating story of two Black artists, just one generation out of slavery, who achieved great heights of success despite the racism and Jim Crow laws that sought to thwart them at every turn. I learned of their complex, imperfect characters, their passion for music and art and each other, and their genius. I also learned about their remarkable families, my ancestors, who carved a path that I and my family have been fortunate to follow ever since.</p>
+      <p>The box revealed a couple and a family whose grit and guts empowered them to succeed, generations before civil rights laws provided any real opportunity for Blacks in the U.S. We three authors are immensely proud to share their story. We hope Abbie and Will Marion will inspire you as they have inspired us and will live on in your hearts as they have in ours.</p>
+      <p class="sig">Jacques Cook<br /><span>August 2026</span></p>
+    </div>
+
+    <aside class="after">
+      <div class="note">
+        <p><strong>Still to come on this page:</strong> a photograph of the box and of the pages inside it, and the longer account from the book's author notes, "The Box, or how the Diva and the Maestro came to be."</p>
+      </div>
+      <div class="btn-row" style="margin-top:24px"><a class="btn" href="/authors">Meet the authors</a><a class="btn" href="/people">The Cook family</a></div>
+    </aside>
+  </article>
+</Layout>
+
+<style>
+  .reading { padding-top: 40px; padding-bottom: 48px; }
+  .text { max-width: 62ch; font-family: var(--display); font-size: clamp(18px, 1.9vw, 20px); line-height: 1.6; }
+  .text p { margin: 0 0 1.05em; }
+  .sig { margin-top: 2em; font-style: italic; }
+  .sig span { font-family: var(--body); font-style: normal; font-size: 14px; color: var(--muted); }
+  .after { max-width: 62ch; margin-top: 40px; }
+</style>

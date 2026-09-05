@@ -1,0 +1,68 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import ArchiveTile from '../components/ArchiveTile.astro';
+import { archive } from '../data/archive';
+import { timeline } from '../data/timeline';
+import portrait from '../assets/archive/will-marion-cook-portrait.jpg';
+const related = archive.filter((i) => i.slug !== 'will-marion-cook-portrait' && i.track === 'will').slice(0, 8);
+const his = timeline.filter((e) => e.track !== 'abbie');
+---
+<Layout title="The Maestro" description="Will Marion Cook (1869–1944): composer, conductor, violinist, and the Maestro of The Diva and the Maestro.">
+  <div class="wrap page-title">
+    <p class="eyebrow gilt">The Maestro</p>
+    <h1 class="maestro">Will Marion Cook</h1>
+    <p class="lede">1869–1944. Composer, conductor, violinist, and the most magnificent of them all, by his own account.</p>
+  </div>
+
+  <div class="wrap layout">
+    <figure class="portrait">
+      <Image src={portrait} alt="Will Marion Cook" width={720} widths={[480, 720, 1000]} sizes="(max-width: 860px) 90vw, 360px" loading="eager" />
+      <figcaption>Will Marion Cook, undated. <a href="/archive/will-marion-cook-portrait">About this photograph</a></figcaption>
+    </figure>
+
+    <div class="prose">
+      <p class="big">"I am creating a new genre of music that will outshine and outlive everyone else's," he tells a fourteen-year-old at her audition. "If you haven't heard of me yet, you will." He was joking, and he meant every word.</p>
+      <p>Will Marion Cook was born in Washington in 1869, the son of a lawyer who was dean of Howard University's law department and who died when Will was ten. A violin prodigy, he went to Oberlin as a boy, to Berlin to study with Joseph Joachim as a teenager, and to New York to study with Antonín Dvořák, who told his American students that their country's music would be built on Black sources. Cook took him at his word.</p>
+      <p>In 1898, with the poet Paul Laurence Dunbar, he wrote <em>Clorindy, or The Origin of the Cake Walk</em>, the first show written and performed by Black artists to play on Broadway. <em>In Dahomey</em> followed in 1903, with Bert Williams and George Walker, and went to London and Buckingham Palace. He organized the Memphis Students, wrote for the Clef Club, and in 1919 took the Southern Syncopated Orchestra to Britain, where it played for the king and introduced Europe to Sidney Bechet.</p>
+      <p>In Harlem in the 1920s he became teacher, critic, and goad to a generation of jazz musicians. Duke Ellington remembered lessons conducted in a taxi around Central Park. He was brilliant, generous, impossible, and broke. He died in New York in 1944.</p>
+
+      <h2>In the book</h2>
+      <p>Will Marion's story runs through "Young Master Willie," "A Most Unusual Family," "The Young Genius on the Continent," "A New American Music," "The Crazy Genius," "Making the World 'Safe' for Democracy," "The Expatriates," and "The Harlem Years."</p>
+    </div>
+  </div>
+
+  <section class="wrap section">
+    <p class="rule-label">His years</p>
+    <ol class="years">
+      {his.map((e) => (
+        <li>
+          <span class="y tabular">{e.year}</span>
+          <div><b>{e.title}</b><p>{e.text}</p></div>
+        </li>
+      ))}
+    </ol>
+    <p><a href="/timeline">The full timeline, hers and his</a></p>
+  </section>
+
+  <section class="wrap section">
+    <div class="section-head">
+      <div><p class="eyebrow">From the archive</p><h2>The music and the rooms</h2></div>
+    </div>
+    <div class="grid-4">
+      {related.map((item) => <ArchiveTile item={item} />)}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .layout { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); padding-top: 48px; align-items: start; }
+  .portrait img { filter: grayscale(1); border: 1px solid var(--line); }
+  .big { font-family: var(--display); font-size: clamp(20px, 2.2vw, 24px); line-height: 1.4; }
+  .years { list-style: none; padding: 0; margin: 20px 0 24px; max-width: 72ch; }
+  .years li { display: grid; grid-template-columns: 90px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .years .y { font-family: var(--display); font-size: 20px; color: var(--fern); }
+  .years b { font-family: var(--display); font-weight: 500; font-size: 19px; display: block; margin-bottom: 4px; }
+  .years p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+  @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } .portrait { max-width: 360px; } }
+</style>

@@ -1,0 +1,49 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <p class="brand"><span class="diva">The Diva</span> and <span class="maestro">the Maestro</span></p>
+        <p class="small">The Life and Times of Abbie Mitchell and Will Marion Cook.<br />A novel based on a true story, by Jacques Cook, Antoinette Cook Bush, and Penny Daniels.</p>
+      </div>
+      <div>
+        <p class="rule-label">Hear about it first</p>
+        <form class="signup" action="#" method="post" onsubmit="return false;">
+          <label for="email" class="visually-hidden">Email address</label>
+          <input id="email" type="email" name="email" placeholder="Your email" required />
+          <button class="btn" type="submit">Subscribe</button>
+        </form>
+        <p class="small">Readings, recordings, and new finds from the archive. The form is a placeholder until a mailing service is connected.</p>
+      </div>
+      <div>
+        <p class="rule-label">Pages</p>
+        <ul class="links">
+          <li><a href="/book">The Book</a></li>
+          <li><a href="/prologue">Read the prologue</a></li>
+          <li><a href="/the-box">The Box</a></li>
+          <li><a href="/archive">Archive</a></li>
+          <li><a href="/events">Events &amp; News</a></li>
+          <li><a href="/authors">Contact the authors</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal">© {year} Jacques Cook, Antoinette Cook Bush, and Penny Daniels. Archive images are public domain or credited to their holders on each item's page.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer { border-top: 1px solid var(--line); padding: 56px 0 40px; margin-top: 48px; background: var(--paper-2); }
+  .cols { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
+  .brand { font-family: var(--display); font-size: 24px; margin: 0 0 10px; }
+  .small { font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .signup { display: flex; gap: 8px; margin: 14px 0 10px; }
+  .signup input { flex: 1; min-width: 0; padding: 11px 14px; font: inherit; font-size: 15px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
+  .links { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; }
+  .links a { color: var(--ink-2); text-decoration: none; font-size: 15px; }
+  .links a:hover { color: var(--oxblood); text-decoration: underline; }
+  .legal { margin: 40px 0 0; font-size: 12.5px; color: var(--muted); }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  @media (max-width: 800px) { .cols { grid-template-columns: 1fr; gap: 28px; } }
+</style>

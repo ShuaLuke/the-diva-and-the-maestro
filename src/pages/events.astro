@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Events & News" description="Readings, talks, reviews, and news about The Diva and the Maestro.">
+  <div class="wrap page-title">
+    <p class="eyebrow gilt">Events &amp; News</p>
+    <h1>Readings, talks, and news</h1>
+    <p class="lede">Nothing scheduled yet. When the book has a date, this page will have one too.</p>
+  </div>
+
+  <div class="wrap">
+    <section class="section">
+      <div class="grid-2">
+        <div>
+          <p class="rule-label">Upcoming</p>
+          <p class="empty">No events scheduled.</p>
+        </div>
+        <div>
+          <p class="rule-label">In the press</p>
+          <p class="empty">No coverage yet.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="prose">
+        <h2>Hear about it first</h2>
+        <p>Join the mailing list at the bottom of any page for readings, recordings, and new finds from the archive.</p>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .empty { color: var(--muted); font-style: italic; margin-top: 12px; }
+</style>
