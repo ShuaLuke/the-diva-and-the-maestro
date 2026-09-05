@@ -11,7 +11,20 @@ npm install
 npm run dev
 ```
 
-Then open http://localhost:4321. `npm run build` writes the finished site to `dist/`.
+Then open http://localhost:4321. `npm run build` writes the finished site to `dist/`, and
+`STATICRYPT_PASSWORD=... npm run encrypt` password-protects it the way the deploy does.
+
+## Password
+
+The published site is password-protected. Every page is encrypted at build time with
+[StatiCrypt](https://github.com/robinmoisson/staticrypt); visitors enter the password once and can
+tick "Remember me" for 30 days.
+
+- The password lives in the GitHub repository as the Actions secret `SITE_PASSWORD`
+  (Settings → Secrets and variables → Actions). It is never written into the code.
+- To change it: update the secret, then re-run the "Deploy to GitHub Pages" workflow from the Actions tab.
+- Images and audio are not encrypted; they are only reachable through the encrypted pages.
+- Local development (`npm run dev`) has no password.
 
 ## Where things live
 

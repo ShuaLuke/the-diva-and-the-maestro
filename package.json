@@ -9,12 +9,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "encrypt": "staticrypt dist -r -d encrypted --config false --short --remember 30 --salt 78dadbdee311bbd5e4e121402a22c9a5 --template-title \"The Diva and the Maestro\" --template-button \"Enter\" --template-placeholder \"Password\" --template-remember \"Remember me on this device\" --template-error \"That password did not work.\" --template-instructions \"This is a private preview of the website for The Diva and the Maestro. Enter the password you were given.\" --template-color-primary \"#7B2230\" --template-color-secondary \"#F3F1EB\" && rm -rf dist && mv encrypted/dist dist && rmdir encrypted"
   },
   "dependencies": {
     "astro": "^7.3.1"
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "devDependencies": {
+    "staticrypt": "^3.5.4"
   }
 }
