@@ -37,15 +37,15 @@
   header nav a { font-family: var(--body); font-weight: 400; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: .85; }
   header nav a:hover { color: var(--gold); opacity: 1; }
 
-  .stage { position: relative; min-height: 100vh; display: grid; align-items: end; overflow: hidden;
+  .stage { position: relative; min-height: clamp(560px, 100vh, 880px); display: grid; align-items: end; overflow: hidden;
     background:
       radial-gradient(ellipse 70% 60% at 50% 100%, rgba(217,180,99,.18), transparent 70%),
-      repeating-linear-gradient(90deg, rgba(0,0,0,.18) 0 18px, transparent 18px 44px),
       linear-gradient(180deg, var(--curtain) 0%, var(--curtain-2) 60%, var(--plum) 100%); }
   .stage .photos { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; }
-  .stage .photos img { width: 100%; height: 100%; object-fit: cover; object-position: top center; filter: grayscale(1) contrast(1.05) brightness(.7); mix-blend-mode: luminosity; opacity: .55;
+  .stage .photos img { width: 100%; height: 100%; object-fit: cover; object-position: top center; filter: grayscale(1) contrast(1.1) brightness(.85) sepia(.3); opacity: .42;
     -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.9) 20%, transparent 95%); mask-image: linear-gradient(180deg, rgba(0,0,0,.9) 20%, transparent 95%); }
   .stage .photos img:first-child { -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.9) 20%, transparent 95%), linear-gradient(90deg, black 70%, transparent); mask-composite: intersect; -webkit-mask-composite: source-in; }
+  .stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(43,19,32,.2) 0%, rgba(43,19,32,.55) 45%, rgba(62,27,46,.92) 80%, var(--plum) 100%); pointer-events: none; }
   .stage .content { position: relative; z-index: 2; text-align: center; padding: 140px 0 clamp(48px, 8vh, 96px); }
   .over { font-family: var(--caps); font-size: 13px; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin: 0 0 22px; }
   .rule { display: flex; align-items: center; gap: 16px; justify-content: center; margin: 22px auto; max-width: 520px; }
