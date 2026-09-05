@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 import Layout from '../layouts/Layout.astro';
 import { people } from '../data/people';
 const historic = people.filter((p) => p.group === 'historic');
@@ -21,7 +22,7 @@ const family = people.filter((p) => p.group === 'family');
       <div class="list">
         {historic.map((p) => (
           <article>
-            <h3>{p.archive ? <a href={`/archive/${p.archive}`}>{p.name}</a> : p.name}</h3>
+            <h3>{p.archive ? <a href={`${base}/archive/${p.archive}`}>{p.name}</a> : p.name}</h3>
             <p class="role"><span class="tabular">{p.dates}</span>{p.dates && ' · '}{p.role}</p>
             <p>{p.text}</p>
           </article>

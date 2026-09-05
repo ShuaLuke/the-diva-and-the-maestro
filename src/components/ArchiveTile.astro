@@ -1,10 +1,11 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 import { Image } from 'astro:assets';
 import type { ArchiveItem } from '../data/archive';
 interface Props { item: ArchiveItem; }
 const { item } = Astro.props;
 ---
-<a class="tile" href={`/archive/${item.slug}`}>
+<a class="tile" href={`${base}/archive/${item.slug}`}>
   <div class="frame" class:list={[!item.image && 'audio']}>
     {item.image
       ? <Image src={item.image} alt={item.title} width={640} widths={[320, 640, 960]} sizes="(max-width: 640px) 90vw, 320px" />

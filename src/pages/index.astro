@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import ArchiveTile from '../components/ArchiveTile.astro';
@@ -18,8 +19,8 @@ const picks = featured.filter((i) => !['abbie-mitchell-portrait', 'will-marion-c
         <p class="tagline">A legendary love affair. Inarguable genius. Ground-breaking art.</p>
         <p class="dek">In the summer of 1898, a fourteen-year-old soprano climbed to the roof of the Casino Theatre to audition for the most arrogant man on Broadway. He hired her for thirty dollars a week. What followed was a marriage, a musical revolution, and a story their own family did not know until they found it in a box.</p>
         <div class="btn-row">
-          <a class="btn primary" href="/book">About the book</a>
-          <a class="btn" href="/prologue">Read the prologue</a>
+          <a class="btn primary" href={`${base}/book`}>About the book</a>
+          <a class="btn" href={`${base}/prologue`}>Read the prologue</a>
         </div>
       </div>
       <div class="hero-art">
@@ -44,7 +45,7 @@ const picks = featured.filter((i) => !['abbie-mitchell-portrait', 'will-marion-c
       <div class="prose">
         <p class="big">After his father died, Jacques Cook found a large box in the house, stuffed with hundreds of pages of prose. The pages told the story of his grandparents: two Black artists, one generation out of slavery, who reached the heights of American music while Jim Crow tried to stop them at every turn.</p>
         <p>Will Marion died before Jacques was born. Abbie died when he was a boy. The box gave them back to him, and this book gives them to everyone else.</p>
-        <p><a href="/the-box">How the book came to be</a></p>
+        <p><a href={`${base}/the-box`}>How the book came to be</a></p>
       </div>
     </div>
   </section>
@@ -57,14 +58,14 @@ const picks = featured.filter((i) => !['abbie-mitchell-portrait', 'will-marion-c
           <h3 class="diva">Abbie Mitchell</h3>
           <p class="dates tabular">1884–1960</p>
           <p>Born to a Jewish father and a Black mother, she walked onto Broadway at fourteen and sang for a king at nineteen. Decades later she was the first voice to sing "Summertime" in <em>Porgy and Bess</em>.</p>
-          <p><a href="/abbie">Her story</a></p>
+          <p><a href={`${base}/abbie`}>Her story</a></p>
         </article>
         <article>
           <p class="eyebrow">The Maestro</p>
           <h3 class="maestro">Will Marion Cook</h3>
           <p class="dates tabular">1869–1944</p>
           <p>A violin prodigy trained in Berlin and by Dvořák, he wrote the first all-Black Broadway musical, took Black American music to Europe, and taught a young Duke Ellington.</p>
-          <p><a href="/will-marion">His story</a></p>
+          <p><a href={`${base}/will-marion`}>His story</a></p>
         </article>
       </div>
     </div>
@@ -79,7 +80,7 @@ const picks = featured.filter((i) => !['abbie-mitchell-portrait', 'will-marion-c
       <div class="prose">
         <blockquote>"You have a glorious voice, little girl, plenty of fire, but you can't sing a damn thing!"</blockquote>
         <p style="margin-top:20px">Abbie Mitchell has just lost her father and her grandmother. Her aunt has spent her last pennies on a dress. And the man at the piano is about to change her life.</p>
-        <p><a class="btn" href="/prologue">Read the prologue</a></p>
+        <p><a class="btn" href={`${base}/prologue`}>Read the prologue</a></p>
       </div>
     </div>
   </section>
@@ -96,7 +97,7 @@ const picks = featured.filter((i) => !['abbie-mitchell-portrait', 'will-marion-c
       <div class="grid-4">
         {picks.map((item) => <ArchiveTile item={item} />)}
       </div>
-      <p style="margin-top:28px"><a class="btn" href="/archive">Browse the archive</a></p>
+      <p style="margin-top:28px"><a class="btn" href={`${base}/archive`}>Browse the archive</a></p>
     </div>
   </section>
 
@@ -108,7 +109,7 @@ const picks = featured.filter((i) => !['abbie-mitchell-portrait', 'will-marion-c
         <div><h3>Antoinette Cook Bush</h3><p>Great-granddaughter. Jacques's niece.</p></div>
         <div><h3>Penny Daniels</h3><p>Writer and family friend.</p></div>
       </div>
-      <p><a href="/authors">About the authors</a></p>
+      <p><a href={`${base}/authors`}>About the authors</a></p>
     </div>
   </section>
 </Layout>

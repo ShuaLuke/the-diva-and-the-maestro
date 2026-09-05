@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout title="The Box" description="How The Diva and the Maestro came to be: a cardboard box of pages found in Mercer Cook's home, and three authors determined to tell the story it held.">
@@ -21,7 +22,7 @@ import Layout from '../layouts/Layout.astro';
       <div class="note">
         <p><strong>Still to come on this page:</strong> a photograph of the box and of the pages inside it, and the longer account from the book's author notes, "The Box, or how the Diva and the Maestro came to be."</p>
       </div>
-      <div class="btn-row" style="margin-top:24px"><a class="btn" href="/authors">Meet the authors</a><a class="btn" href="/people">The Cook family</a></div>
+      <div class="btn-row" style="margin-top:24px"><a class="btn" href={`${base}/authors`}>Meet the authors</a><a class="btn" href={`${base}/people`}>The Cook family</a></div>
     </aside>
   </article>
 </Layout>

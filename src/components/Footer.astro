@@ -1,4 +1,5 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
@@ -20,12 +21,12 @@ const year = new Date().getFullYear();
       <div>
         <p class="rule-label">Pages</p>
         <ul class="links">
-          <li><a href="/book">The Book</a></li>
-          <li><a href="/prologue">Read the prologue</a></li>
-          <li><a href="/the-box">The Box</a></li>
-          <li><a href="/archive">Archive</a></li>
-          <li><a href="/events">Events &amp; News</a></li>
-          <li><a href="/authors">Contact the authors</a></li>
+          <li><a href={`${base}/book`}>The Book</a></li>
+          <li><a href={`${base}/prologue`}>Read the prologue</a></li>
+          <li><a href={`${base}/the-box`}>The Box</a></li>
+          <li><a href={`${base}/archive`}>Archive</a></li>
+          <li><a href={`${base}/events`}>Events &amp; News</a></li>
+          <li><a href={`${base}/authors`}>Contact the authors</a></li>
         </ul>
       </div>
     </div>
